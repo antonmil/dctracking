@@ -120,7 +120,10 @@ Get ground truth and detections
     cd data
     wget http://research.milanton.net/files/data-tud.zip
     unzip data-tud.zip
+    wget http://research.milanton.net/files/init.zip
+    unzip init.zip
     wget http://research.milanton.net/files/gt/TUD/TUD-Stadtmitte-calib.xml
+    
 
 Next, get the TUD Stadtmitte sequence
 
@@ -133,10 +136,12 @@ Next, get the TUD Stadtmitte sequence
 Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
 From Matlab, run
 
-    swDCTracker(0)
+    [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(0);
     
 You can display the results by calling
-    displayTrackingResult(sceneInfo, stateInfo)
+
+    displayTrackingResult(sceneInfo, stateInfo);
+    
     
 ## Other videos
 To run the tracker on other videos, adjust the necessary settings in
