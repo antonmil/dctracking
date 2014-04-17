@@ -51,6 +51,7 @@ Download and install GCO 3.0 from http://vision.csd.uwo.ca/code/
 ### OpenGM2
 For inference with submodular energies, you will need to install the OpenGM2 framework.
 In particular, you should download and build the code with QPBO and/or TRW-S support.
+
     cd external
     git clone https://github.com/opengm/opengm.git
     cd opengm    
