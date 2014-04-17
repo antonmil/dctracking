@@ -16,7 +16,8 @@ and later extended to include exclusion and statistically derived energy potenti
 This section describes how to get dctracking running under Linux
 
 Get the code
-    hg clone https://bitbucket.org/amilan/dctracking    
+    hg clone https://bitbucket.org/amilan/dctracking
+    cd dctracking
     
     
 ## Prerequisites
