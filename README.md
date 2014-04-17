@@ -16,6 +16,7 @@ and later extended to include exclusion and statistically derived energy potenti
 This section describes how to get dctracking running under Linux
 
 Get the code
+
     hg clone https://bitbucket.org/amilan/dctracking
     cd dctracking
     
@@ -31,6 +32,7 @@ You will need a few external software packages to run this code
 
 ### MOT utils
 This package includes many useful functions for reading detections, displaying results, etc.
+
     cd external
     hg clone https://bitbucket.org/amilan/motutils
     cd ..
@@ -39,6 +41,7 @@ This package includes many useful functions for reading detections, displaying r
     
 ### GCO
 Download and install GCO 3.0 from http://vision.csd.uwo.ca/code/
+
     cd external
     mkdir GCO
     cd GCO
@@ -74,6 +77,7 @@ for further instructions.
 
 ### Lightspeed    
 You may want to install lightspeed for better performance (optional)
+
     cd external
     wget http://ftp.research.microsoft.com/downloads/db1653f0-1308-4b45-b358-d8e1011385a0/lightspeed.zip
     unzip lightspeed.zip
@@ -85,6 +89,7 @@ Now fire up MATLAB. Note that it is assumed that you have a c++ mex compiler con
 
 ### MEX
 To speed up things, you should compile the extensive energy components computations
+
     compileMex
 
 It is possible to switch off mex calls by setting opt.mex=0 in "getDCOptions.n".
@@ -92,11 +97,13 @@ But this is not recommended.
 
 ### GCO
 If the binaries for your OS are not included you should compile GCO 
+
     cd external/GCO/matlab
     GCO_UnitTest
     cd ../..
 
 ### OpenGM Bindings
+
     cd opengm
     compileOGM
     cd ..
@@ -106,6 +113,7 @@ If the binaries for your OS are not included you should compile GCO
 As a final preparation step, let us download the data.
 
 Get ground truth and detections
+
     mkdir data
     cd data
     wget http://research.milanton.net/files/data-tud.zip
@@ -113,6 +121,7 @@ Get ground truth and detections
     wget http://research.milanton.net/files/gt/TUD/TUD-Stadtmitte-calib.xml
 
 Next, get the TUD Stadtmitte sequence
+
     wget http://www.d2.mpi-inf.mpg.de/sites/default/files/datasets/andriluka_cvpr10/cvpr10_tud_stadtmitte.tar.gz
     tar -xzf cvpr10_tud_stadtmitte.tar.gz
     cd ..
@@ -120,6 +129,7 @@ Next, get the TUD Stadtmitte sequence
     
 # Running
 Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
+
     swDCTracker(0)
     
 You can display the results by calling
