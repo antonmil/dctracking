@@ -25,7 +25,7 @@ opti=opt;
 if nargin==2
     opti=options;
 end
-sceneInfo=getSceneInfo(scenario);
+sceneInfo=getSceneInfoDemo(scenario);
 allframeNums=sceneInfo.frameNums;
 F=length(allframeNums);
 fromframe=1; toframe=windowSize;
