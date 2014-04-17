@@ -136,7 +136,7 @@ Next, get the TUD Stadtmitte sequence
 Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
 From Matlab, run
 
-    [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(0);
+    [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(42);
     
 You can display the results by calling
 
