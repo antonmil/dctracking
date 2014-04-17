@@ -37,8 +37,7 @@ sceneInfo.seqname='TUD-Stadmitte';
 sceneInfo.frameRate=25;
 
 sceneInfo.imgFolder=fullfile(dbfolder,filesep,'cvpr10_tud_stadtmitte',filesep);
-sceneInfo.imgFileFormat='DaSide0811-seq7-%03d';
-sceneInfo.imgFileFormat=[sceneInfo.imgFileFormat imgExt];
+sceneInfo.imgFileFormat='DaSide0811-seq7-%03d.png';
 
 %% tracking area
 % if we are tracking on the ground plane
