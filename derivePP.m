@@ -1,4 +1,4 @@
-%% symbolic derivatives for PP (piecewise polynomials)
+%% symbolic derivatives
 syms t ax bx cx dx ay by cy dy f_
 
 %f=t*(t*(t*ax + bx)+cx)+dx;

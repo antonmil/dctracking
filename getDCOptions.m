@@ -190,8 +190,8 @@ end
 %     opt.conOpt.alg='fminunc'; % CGD, fmincon
 %     opt.conOpt.maxIter=5;
 %     
-    opt.conOpt.alg='LBFGS'; % 
-    opt.conOpt.maxIter=400;
+%     opt.conOpt.alg='LBFGS'; % 
+%     opt.conOpt.maxIter=400;
 %  
 %     opt.conOpt.alg='lsfit'; % Least squares fit
 %
