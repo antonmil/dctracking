@@ -85,7 +85,7 @@ end
 
 
 % fill scene info
-sceneInfo=getSceneInfo(scenario);
+sceneInfo=getSceneInfoDemo(scenario);
 
 
 % fill in empty output

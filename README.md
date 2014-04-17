@@ -2,14 +2,15 @@
 This is a framework for multiple target tracking by discrete-continuous
 energy minimization. The main idea was first described in this CVPR 2012 paper:
 
-Discrete-Continuous Optimization for Multi-Target Tracking
-A. Andriyenko, K. Schindler and S. Roth, In: CVPR 2012
+    Discrete-Continuous Optimization for Multi-Target Tracking
+    A. Andriyenko, K. Schindler and S. Roth, In: CVPR 2012
+    [pdf](http://www.milanton.de/files/cvpr2012/cvpr2012-anton.pdf)
 
 and later extended to include exclusion and statistically derived energy potentials:
 
-Detection- and Trajectory-Level Exclusion in Multiple Object Tracking
-A. Milan, K. Schindler and S. Roth, In: CVPR 2013
-
+    Detection- and Trajectory-Level Exclusion in Multiple Object Tracking
+    A. Milan, K. Schindler and S. Roth, In: CVPR 2013
+    [pdf](http://www.milanton.de/files/cvpr2013/cvpr2013-anton.pdf)
 
 
 # Installation
@@ -17,7 +18,6 @@ This section describes how to get dctracking running under Linux
 
 Get the code
     hg clone https://bitbucket.org/amilan/dctracking    
-
     
     
 ## Prerequisites
@@ -26,6 +26,7 @@ You will need a few external software packages to run this code
 - MOT utils
 - GCO
 - OpenGM2
+- Lightspeed (optional)
 
 
 ### MOT utils
@@ -66,11 +67,18 @@ In particular, you should download and build the code with QPBO and/or TRW-S sup
     make -j4    
     make install
     cd ../..
-      
-    
+
 Please refer to the [OpenGM website](http://hci.iwr.uni-heidelberg.de/opengm2/) 
 for further instructions.
 
+
+### Lightspeed    
+You may want to install lightspeed for better performance (optional)
+    cd external
+    wget http://ftp.research.microsoft.com/downloads/db1653f0-1308-4b45-b358-d8e1011385a0/lightspeed.zip
+    unzip lightspeed.zip
+    cd ..
+    
 
 ## Compiling
 Now fire up MATLAB. Note that it is assumed that you have a c++ mex compiler configured.
@@ -81,7 +89,6 @@ To speed up things, you should compile the extensive energy components computati
 
 It is possible to switch off mex calls by setting opt.mex=0 in "getDCOptions.n".
 But this is not recommended.
-
 
 ### GCO
 If the binaries for your OS are not included you should compile GCO 
@@ -95,12 +102,29 @@ If the binaries for your OS are not included you should compile GCO
     cd ..
 
     
+# Data
+As a final preparation step, let us download the data.
+
+Get ground truth and detections
+    mkdir data
+    cd data
+    wget http://research.milanton.net/files/data-tud.zip
+    unzip data-tud.zip
+    wget http://research.milanton.net/files/gt/TUD/TUD-Stadtmitte-calib.xml
+
+Next, get the TUD Stadtmitte sequence
+    wget http://www.d2.mpi-inf.mpg.de/sites/default/files/datasets/andriluka_cvpr10/cvpr10_tud_stadtmitte.tar.gz
+    tar -xzf cvpr10_tud_stadtmitte.tar.gz
+    cd ..
+    
+    
 # Running
-Now all should be set to run the tracker
-
-
-
-
+Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
+    swDCTracker(0)
+    
+You can display the results by calling
+    displayTrackingResult(sceneInfo, stateInfo)
+   
 Please do not forget to cite our work if you end up using this code:
 
     @inproceedings{Milan:2013:DTE,
