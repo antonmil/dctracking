@@ -133,7 +133,7 @@ if opt.track3d
     opt.outlierCost=    520.0769;
     opt.unaryFactor=320.3257;    
     opt.pairwiseFactor=0.21;
-    opt.goodnessFactor=2.0151;
+%     opt.goodnessFactor=2.0151;
     opt.fidelityFactor = 0;
     opt.slopeFactor = 13.3286;
     opt.curvatureFactor = 0.0002;
