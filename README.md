@@ -1,16 +1,15 @@
 # Discrete-Continuous Multi-target Tracking
 This is a framework for multiple target tracking by discrete-continuous
-energy minimization. The main idea was first described in this CVPR 2012 paper:
+energy minimization. The main idea was first described in this CVPR 2012 paper [(pdf)](http://www.milanton.de/files/cvpr2012/cvpr2012-anton.pdf)
+
 
     Discrete-Continuous Optimization for Multi-Target Tracking
-    A. Andriyenko, K. Schindler and S. Roth, In: CVPR 2012
-    [pdf](http://www.milanton.de/files/cvpr2012/cvpr2012-anton.pdf)
+    A. Andriyenko, K. Schindler and S. Roth, In: CVPR 2012    
 
-and later extended to include exclusion and statistically derived energy potentials:
+and later extended to include exclusion and statistically derived energy potentials [(pdf)](http://www.milanton.de/files/cvpr2013/cvpr2013-anton.pdf):
 
     Detection- and Trajectory-Level Exclusion in Multiple Object Tracking
-    A. Milan, K. Schindler and S. Roth, In: CVPR 2013
-    [pdf](http://www.milanton.de/files/cvpr2013/cvpr2013-anton.pdf)
+    A. Milan, K. Schindler and S. Roth, In: CVPR 2013    
 
 
 # Installation
