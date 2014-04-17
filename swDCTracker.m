@@ -16,10 +16,8 @@ if exist(swfile,'file')
 end
 
 allstInfo=[];
+addPaths();
 
-if ~isdeployed
-    addpath(genpath('../../contracking/utils/'));  
-end
 
 global opt;
 opt=getDCOptions;

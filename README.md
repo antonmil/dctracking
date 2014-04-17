@@ -13,7 +13,8 @@ and later extended to include exclusion and statistically derived energy potenti
 
 
 # Installation
-This section describes how to get dctracking running under Linux
+This section describes how to get dctracking running under Linux.
+Open a terminal window.
 
 Get the code
 
@@ -69,7 +70,7 @@ In particular, you should download and build the code with QPBO and/or TRW-S sup
     cmake .. -DWITH_QPBO=ON -DWITH_TRWS=ON -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX:PATH=..
     make -j4    
     make install
-    cd ../..
+    cd ../../..
 
 Please refer to the [OpenGM website](http://hci.iwr.uni-heidelberg.de/opengm2/) 
 for further instructions.
@@ -100,7 +101,7 @@ If the binaries for your OS are not included you should compile GCO
 
     cd external/GCO/matlab
     GCO_UnitTest
-    cd ../..
+    cd ../../..
 
 ### OpenGM Bindings
 
@@ -111,6 +112,7 @@ If the binaries for your OS are not included you should compile GCO
     
 # Data
 As a final preparation step, let us download the data.
+Go back to the terminal window.
 
 Get ground truth and detections
 
@@ -129,11 +131,23 @@ Next, get the TUD Stadtmitte sequence
     
 # Running
 Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
+From Matlab, run
 
     swDCTracker(0)
     
 You can display the results by calling
     displayTrackingResult(sceneInfo, stateInfo)
+    
+## Other videos
+To run the tracker on other videos, adjust the necessary settings in
+
+    getSceneInfo.m
+    
+The parameters can be set in
+
+    getDCOptions.m
+   
+   
    
 Please do not forget to cite our work if you end up using this code:
 

@@ -5,7 +5,7 @@
 
 
 #include <opengm/graphicalmodel/graphicalmodel.hxx>
-#include <opengm/graphicalmodel/graphicalmodel_hdf5.hxx>
+// #include <opengm/graphicalmodel/graphicalmodel_hdf5.hxx>
 //#include <opengm/utilities/metaprogramming.hxx>
 //#include <opengm/graphicalmodel/space/discretespace.hxx>
 #include <opengm/graphicalmodel/space/simplediscretespace.hxx>
