@@ -80,7 +80,7 @@ opt.unaryFactor=   10;
     opt.slopeFactor=1e-3;
     opt.proxcostFactor=1000;
 	opt.exclusionFactor=200;
-    
+    opt.fidelityFactor=0;
 
 if opt.track3d
     opt.tau =           750;   % threshold (mm) for spatio-temporal neighbors
@@ -127,6 +127,19 @@ if opt.track3d
     opt.persistenceFactor=20;
     opt.proxcostFactor=100;
     opt.exclusionFactor=100;
+    
+    % PAMI
+    opt.labelCost=0.3026;
+    opt.outlierCost=    520.0769;
+    opt.unaryFactor=320.3257;    
+    opt.pairwiseFactor=0.21;
+    opt.goodnessFactor=2.0151;
+    opt.fidelityFactor = 0;
+    opt.slopeFactor = 13.3286;
+    opt.curvatureFactor = 0.0002;
+    opt.persistenceFactor=22.1478;
+    opt.proxcostFactor=29.6237;
+    opt.exclusionFactor=19.4525;
     
 
     opt.maxItCount=50;
@@ -177,8 +190,8 @@ end
 %     opt.conOpt.alg='fminunc'; % CGD, fmincon
 %     opt.conOpt.maxIter=5;
 %     
-%     opt.conOpt.alg='LBFGS'; % 
-%     opt.conOpt.maxIter=400;
+    opt.conOpt.alg='LBFGS'; % 
+    opt.conOpt.maxIter=400;
 %  
 %     opt.conOpt.alg='lsfit'; % Least squares fit
 %
@@ -202,6 +215,7 @@ end
 	opt.totalSupFactor= 2;
 	opt.meanDPFFactor=  2;
 	opt.meanDPFeFactor= 2;
+    opt.randFit=0;
 
 
 end

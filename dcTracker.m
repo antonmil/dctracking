@@ -118,7 +118,7 @@ gtInfo=cropFramesFromGT(sceneInfo,gtInfo,frames,opt);
 if opt.visOptim,  reopenFig('optimization'); end
 %% load detections
 [detections, nPoints]=parseDetections(sceneInfo,frames,opt.detThreshold);
-[detections, nPoints]=cutDetections(detections,nPoints);
+[detections, nPoints]=cutDetections(detections,nPoints,sceneInfo, opt);
 % detMatrices=getDetectionMatrices(detections);
 
 
@@ -177,11 +177,7 @@ mhs=getSplineProposals(alldpoints,opt.nInitModels,T);
 
 %% get splines from EKF
 for ekfexp=opt.startFromEKF
-    dbfolder=fullfile(filesep,'storage','databases'); 
-    if ispc, dbfolder=fullfile('D:','storage','databases'); end
-    if exist('/gris','dir'), dbfolder=fullfile(filesep,'gris','gris-f','home','aandriye','storage'); end
-    
-    %     initsolfile=fullfile(getHomeFolder(),'diss','ekftracking','output',sprintf('s%04d%se%04d.mat',scenario,filesep,ekfexp));
+    dbfolder=fullfile('data','init'); 
     initsolfile=fullfile(dbfolder,'ekftracking',sceneInfo.dataset,sceneInfo.sequence,sprintf('e%04d.mat',ekfexp));
     %     initsolfile
     mhsekf=getSplinesFromEKF(initsolfile,frames,alldpoints,T);
@@ -191,8 +187,8 @@ end
 global startPT
 %% get splines from DP [Pirsiavash et al.]
 if opt.startFromPir
-    if exist(sprintf('%s/diss/others/pirsiavash/results/startPT-pir-s%04d.mat',getHomeFolder(),scenario),'file')
-        load(sprintf('%s/diss/others/pirsiavash/results/startPT-pir-s%04d.mat',getHomeFolder(),scenario));
+    if exist(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario),'file')
+        load(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario));
         if opt.track3d
             [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
             startPT.Xgp=startPT.X;startPT.Ygp=startPT.Y;

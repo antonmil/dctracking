@@ -330,7 +330,8 @@ for m=used
     % seg consistency
     [~, spl.index] = histc(tt,[-inf,spl.breaks(2:spl.pieces),inf]);
     stateVec=splinesToVec(spl);
-    segpen = opt.segFactor*Eseg(stateVec,spl,opt);
+%     segpen = opt.segFactor*Eseg(stateVec,spl,opt);
+    segpen=0;
     
 
     allpens=gF*[hlin hang persistence occgapspen segpen];

@@ -30,14 +30,19 @@ if nargin<2
 end
 
 dbfolder='data';
-sceneInfo.detfile=fullfile(dbfolder,'det','TUD-stadtmitte-det.xml');
-sceneInfo.frameNums=7022:7200;
 sceneInfo.dataset='TUD';
-sceneInfo.seqname='TUD-Stadmitte';
+sceneInfo.sequence='TUD-Stadtmitte';
+sceneInfo.frameNums=7022:7200;
 sceneInfo.frameRate=25;
 
 sceneInfo.imgFolder=fullfile(dbfolder,filesep,'cvpr10_tud_stadtmitte',filesep);
-sceneInfo.imgFileFormat='DaSide0811-seq7-%03d.png';
+sceneInfo.imgFileFormat='DaMultiview-seq%04d.png';
+% image dimensions
+[sceneInfo.imgHeight, sceneInfo.imgWidth, ~]= ...
+    size(imread([sceneInfo.imgFolder sprintf(sceneInfo.imgFileFormat,sceneInfo.frameNums(1))]));
+
+% detections
+sceneInfo.detfile=fullfile(dbfolder,'det',sceneInfo.dataset,'TUD-stadtmitte-det.xml');
 
 %% tracking area
 % if we are tracking on the ground plane
@@ -64,7 +69,7 @@ sceneInfo.targetAR=1/3;
 
 
 %% ground truth
-sceneInfo.gtFile=fullfile(dbfolder,filesep,'gt',dataset,[sceneInfo.seqname '-interp.xml']);
+sceneInfo.gtFile=fullfile(dbfolder,'gt',sceneInfo.dataset,[sceneInfo.sequence '.xml']);
 fprintf('GT File: %s\n',sceneInfo.gtFile);
 
 global gtInfo
@@ -119,6 +124,9 @@ if opt.track3d
         error('camera parameters required for 3d tracking. Provide camera calibration or siwtch to 2d tracking');
     end
 end
+
+%% shift target center from foot position to center of BB?
+sceneInfo.yshift=0;
 
 sceneInfo.scenario=scenario;
 end
