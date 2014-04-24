@@ -154,9 +154,13 @@ From Matlab, run
 
     [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(42);
     
+The output should be similar to the one in logs/log_stadtmitte.txt. Note that both discrete inference 
+and continuous minimization may lead to slightly different final results, depending on the current 
+software environment and hardware architecture.
+    
 You can display the results by calling
 
-    displayTrackingResult(sceneInfo, stateInfo);
+    displayTrackingResult(stateInfo.sceneInfo, stateInfo);
     
     
 Other videos
