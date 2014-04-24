@@ -111,7 +111,7 @@ if opt.track3d
     opt.startFromPir=1;
     opt.startFromCon=0;
     opt.startFromGT=0;
-    opt.nInitModels=    10;
+    opt.nInitModels=    50;
 
     
     opt.frames=141:2000;
@@ -133,7 +133,7 @@ if opt.track3d
     opt.outlierCost=    520.0769;
     opt.unaryFactor=320.3257;    
     opt.pairwiseFactor=0.21;
-%     opt.goodnessFactor=2.0151;
+    opt.goodnessFactor=2.0151;
     opt.fidelityFactor = 0;
     opt.slopeFactor = 13.3286;
     opt.curvatureFactor = 0.0002;
@@ -146,6 +146,8 @@ if opt.track3d
 
     opt.segFactor=1e-2;
     opt.readjustSE=0;
+    
+    opt.randrun=2;
 
 
     
@@ -153,11 +155,11 @@ if opt.track3d
 end
 
     % discrete optimization options
-    opt.disOpt.alg=1; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
-    opt.disOpt.infParam=[100,0,1]; % TRWS: nIter, randStart, doBPS
+%     opt.disOpt.alg=1; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
+%     opt.disOpt.infParam=[100,0,1]; % TRWS: nIter, randStart, doBPS
     
-%     opt.disOpt.alg=2; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
-%     opt.disOpt.infParam=[1,1,1]; % QPBO: useProb, strongPer, useImpr
+    opt.disOpt.alg=2; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
+    opt.disOpt.infParam=[1,1,1]; % QPBO: useProb, strongPer, useImpr
 
 %     opt.disOpt.alg=3; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
 %     opt.disOpt.infParam=[10,1,1,1]; % MQPBO: rounds, stronPers, Kovt., perm.
@@ -184,14 +186,14 @@ end
     
     
 % continuous minimization options
-    opt.conOpt.alg='CGD'; % CGD, fmincon
-    opt.conOpt.maxIter=200;
+%     opt.conOpt.alg='CGD'; % CGD, fmincon
+%     opt.conOpt.maxIter=200;
     
 %     opt.conOpt.alg='fminunc'; % CGD, fmincon
 %     opt.conOpt.maxIter=5;
 %     
-%     opt.conOpt.alg='LBFGS'; % 
-%     opt.conOpt.maxIter=400;
+    opt.conOpt.alg='LBFGS'; % 
+    opt.conOpt.maxIter=200;
 %  
 %     opt.conOpt.alg='lsfit'; % Least squares fit
 %
@@ -205,7 +207,7 @@ end
 
 	% old or debug parameters, please ignore
     opt.saveEnSS=0; % save energy snapshots
-	opt.oriKappa=1;
+	opt.oriKappa=0;
 	opt.oriWeight=0;
 	opt.startFromCon=0;
 	opt.startFromLinked=0;

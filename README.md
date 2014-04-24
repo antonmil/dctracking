@@ -1,4 +1,6 @@
-# Discrete-Continuous Multi-target Tracking
+Discrete-Continuous Multi-target Tracking
+===========================================
+
 This is a framework for multiple target tracking by discrete-continuous
 energy minimization. The main idea was first described in this CVPR 2012 paper [(pdf)](http://www.milanton.de/files/cvpr2012/cvpr2012-anton.pdf)
 
@@ -12,7 +14,9 @@ and later extended to include exclusion and statistically derived energy potenti
     A. Milan, K. Schindler and S. Roth, In: CVPR 2013    
 
 
-# Installation
+Installation
+==============
+
 This section describes how to get dctracking running under Linux.
 Open a terminal window.
 
@@ -22,7 +26,9 @@ Get the code
     cd dctracking
     
     
-## Prerequisites
+Prerequisites
+-------------
+
 You will need a few external software packages to run this code
 
 - MOT utils
@@ -85,8 +91,14 @@ You may want to install lightspeed for better performance (optional)
     cd ..
     
 
-## Compiling
-Now fire up MATLAB. Note that it is assumed that you have a c++ mex compiler configured.
+Compiling
+---------
+
+Before starting MATLAB, you should add the OpenGM directory to the library path:
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/external/opengm/BUILD/src/external/
+    
+Now fire up MATLAB. It is assumed that you have a c++ mex compiler configured.
 
 ### MEX
 To speed up things, you should compile the extensive energy components computations
@@ -110,7 +122,9 @@ If the binaries for your OS are not included you should compile GCO
     cd ..
 
     
-# Data
+Data
+====
+
 As a final preparation step, let us download the data.
 Go back to the terminal window.
 
@@ -132,7 +146,9 @@ Next, get the TUD Stadtmitte sequence
     cd ..
     
     
-# Running
+Running
+=======
+
 Now all should be set to run the tracker. Let's run it on the TUD-Stadtmitte sequence
 From Matlab, run
 
@@ -143,12 +159,14 @@ You can display the results by calling
     displayTrackingResult(sceneInfo, stateInfo);
     
     
-## Other videos
+Other videos
+------------
+
 To run the tracker on other videos, adjust the necessary settings in
 
     getSceneInfo.m
     
-The parameters can be set in
+Parameters can be set in
 
     getDCOptions.m
    
