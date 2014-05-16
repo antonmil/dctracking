@@ -83,8 +83,8 @@ opt.unaryFactor=   10;
     opt.fidelityFactor=0;
     opt.pairwiseFactor=1;
     
-    opt.frames=1:200;    
-    opt.visOptim=1;
+    opt.frames=1:2000;    
+    opt.visOptim=0;
     
     % KITTI
     opt.persistenceFactor=10000;
