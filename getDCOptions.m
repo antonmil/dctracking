@@ -81,6 +81,15 @@ opt.unaryFactor=   10;
     opt.proxcostFactor=1000;
 	opt.exclusionFactor=200;
     opt.fidelityFactor=0;
+    opt.pairwiseFactor=1;
+    
+    opt.frames=1:200;    
+    opt.visOptim=1;
+    
+    % KITTI
+    opt.persistenceFactor=10000;
+    opt.labelCost=200;
+    opt.segFactor=1;
 
 if opt.track3d
     opt.tau =           750;   % threshold (mm) for spatio-temporal neighbors
@@ -186,8 +195,8 @@ end
     
     
 % continuous minimization options
-%     opt.conOpt.alg='CGD'; % CGD, fmincon
-%     opt.conOpt.maxIter=200;
+    opt.conOpt.alg='CGD'; % CGD, fmincon
+    opt.conOpt.maxIter=200;
     
 %     opt.conOpt.alg='fminunc'; % CGD, fmincon
 %     opt.conOpt.maxIter=5;
