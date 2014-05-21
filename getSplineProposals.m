@@ -76,19 +76,19 @@ while generated<n && trygen2<maxtries2
     if trygen==maxtries, continue; end
 
     xy=[alldpoints.xp(randPoints);alldpoints.yp(randPoints)];
-    t=alldpoints.tp(randPoints);
+    t=alldpoints.tp(randPoints);tr=t;
 %     confs=alldpoints.sp(randPoints);
     
     order=numel(randPoints);
-    tr=t+opt.randFit*rand(1,length(t)); % add random noise to avoid NaN in fitting (LOOK INTO THIS!)   
+%     tr=t+opt.randFit*rand(1,length(t)); % add random noise to avoid NaN in fitting (LOOK INTO THIS!)       
     tryfit=splinefit(tr,xy,1,order);
     if numel(find(isnan(tryfit.coefs))), continue; end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % make cubic
     if order~=4
         sortedt=sort(t);
-        t=linspace(sortedt(1),sortedt(end),4);
-        tr=t+opt.randFit*rand(1,length(t)); % add random noise to avoid NaN in fitting (LOOK INTO THIS!)   
+        t=linspace(sortedt(1),sortedt(end),4);tr=t;
+%         tr=t+opt.randFit*rand(1,length(t)); % add random noise to avoid NaN in fitting (LOOK INTO THIS!)   
         xy=ppval(tryfit,tr);
         cubicspline=splinefit(tr,xy,1,4);
     else

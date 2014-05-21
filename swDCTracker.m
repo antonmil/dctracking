@@ -3,7 +3,9 @@ function [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(scen,options,swfi
 
 % scen=71;
 global scenario
-scenario=scen;
+
+if nargin, scenario=scen; end
+% scenario=scen;
 
 % default
 windowSize=50;minWindowSize=15;overlapSize=5;
@@ -25,7 +27,7 @@ opti=opt;
 if nargin==2
     opti=options;
 end
-sceneInfo=getSceneInfoDemo(scenario);
+sceneInfo=getSceneInfo(scenario);
 allframeNums=sceneInfo.frameNums;
 F=length(allframeNums);
 fromframe=1; toframe=windowSize;
@@ -41,6 +43,8 @@ while toframe<=F
     opti.frames=fromframe:toframe;
     [metrics2d, metrics3d, allens, stateInfo]=dcTracker(scen,opti);
     allallens(wincnt,:)=allens;
+    allstInfo
+    stateInfo
     allstInfo=[allstInfo stateInfo];
     allwins(wincnt,:)=[fromframe toframe];
 
@@ -82,7 +86,7 @@ for w=1:wincnt
 end
 
 %% finish up
-global scenario
+% global scenario
 global gtInfo
 scenario=scen;
 sceneInfo=getSceneInfo(scenario);

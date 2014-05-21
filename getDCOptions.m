@@ -49,6 +49,8 @@ opt.borderMargin =  100;   % (pixel) % distance for persistence
 opt.startFromEKF=1:5;
 opt.startFromPir=1;
 opt.startFromGT=0;
+opt.EKFDir='data/init/ekftracking';
+opt.DPDir='data/init/dptracking';
 
 % Discard all detections below threshold
 opt.detThreshold=.0;
@@ -87,9 +89,12 @@ opt.unaryFactor=   10;
     opt.visOptim=0;
     
     % KITTI
-    opt.persistenceFactor=10000;
-    opt.labelCost=200;
-    opt.segFactor=1;
+    opt.persistenceFactor=0;
+    opt.labelCost=800;
+    opt.outlierCost=    800;
+    opt.segFactor=10;
+    opt.slopeFactor=1e-4;
+%     opt.visOptim=1;
 
 if opt.track3d
     opt.tau =           750;   % threshold (mm) for spatio-temporal neighbors
@@ -157,7 +162,15 @@ if opt.track3d
     opt.readjustSE=0;
     
     opt.randrun=2;
+    opt.visOptim=1;
 
+    
+    opt.met2d=0;
+    opt.unaryFactor=10;
+    opt.outlierCost=1000;
+    opt.slopeFactor=.005;
+    opt.labelCost=50;
+    opt.persistenceFactor=1;
 
     
 
@@ -227,6 +240,24 @@ end
 	opt.meanDPFFactor=  2;
 	opt.meanDPFeFactor= 2;
     opt.randFit=0;
+    
+%     %% CVPR 2012
+% 
+%     % unary (data) term, 
+%     opt.dataFunction = 2;           % 1 = L2-dist, 2=L2-dist^2, 3=dist Lorenzian
+% 
+%     % curvature
+%     opt.speedFunction = 1;          % 1 = max(...),  2 = curvature, 3 = curv. lor.
+% 
+%     % fidelity
+%     opt.fidFunction = 1;            % 1 = original (^3), 2 = linear, 3 = lorenzian    
+%     opt.conOpt.alg='lsfit'; % Least squares fit
+%     opt.readjustSE=0;
+%     opt.conOpt.initSimple=0;
+%     opt.disOpt.initSimple=0;
+%     opt.proxcostFactor=0;
+%     opt.exclusionFactor=0;
+%     opt.fidelityFactor=1;
 
 
 end

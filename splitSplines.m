@@ -75,8 +75,10 @@ for m=used
             % fit through splines
             if length(tt1)>=4
                 xy=ppval(mhs,tt1); %pts on spline
-                tr=tt1+opt.randFit*rand(1,length(tt1));
+                tr=tt1;
+%                 tr=tt1+opt.randFit*rand(1,length(tt1));
                 addedExt=addedExt+1;
+                
                 sfit=splinefit(tr,xy,round(max(opt.minCPs,(tr(end)-tr(1))*opt.ncpsPerFrame )));
                 sfit=adjustSplineStruct(sfit, min(tt1), max(tt1), alldpoints, T, 0, [], [], []); 
                 mhsnew(addedExt) = sfit;
@@ -86,8 +88,10 @@ for m=used
             
             if length(tt2)>=4
                 xy=ppval(mhs,tt2); %pts on spline
-                tr=tt2+opt.randFit*rand(1,length(tt2));
+                tr=tt2;
+%                 tr=tt2+opt.randFit*rand(1,length(tt2));
                 addedExt=addedExt+1;
+                
                 sfit=splinefit(tr,xy,round(max(opt.minCPs,(tr(end)-tr(1))*opt.ncpsPerFrame )));
                 sfit=adjustSplineStruct(sfit, min(tt2), max(tt2), alldpoints, T, 0, [], [], []); 
                 mhsnew(addedExt) = sfit;

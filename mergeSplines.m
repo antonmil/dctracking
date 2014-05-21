@@ -55,9 +55,9 @@ if nUsed>1
                 supp2=find(labeling==mod2);
                 allsup=[supp1 supp2];
                 
-                t=allpoints.tp(allsup);
+                t=allpoints.tp(allsup);tr=t;
                 % FIXME
-                tr=t+opt.randFit*rand(1,length(t));
+%                 tr=t+opt.randFit*rand(1,length(t));
                 
                 xy=[allpoints.xp(allsup);allpoints.yp(allsup)];
                 
@@ -79,8 +79,8 @@ if nUsed>1
                 xt1=ppval(mh1,s1:e1); %pts on spline
                 xt2=ppval(mh2,s2:e2);
                 xy=[xt1 xt2];
-                t=[s1:e1 s2:e2];
-                tr=t+opt.randFit*rand(1,length(t));
+                t=[s1:e1 s2:e2];tr=t;
+%                 tr=t+opt.randFit*rand(1,length(t));
                 addedMerged=addedMerged+1;
 %                 sfit=splinefit(tr,xy,round(mh1.pieces+mh2.pieces));
                 sfit=splinefit(tr,xy,round(max(opt.minCPs,(tr(end)-tr(1))*opt.ncpsPerFrame )));

@@ -21,10 +21,10 @@ nUsed=length(used);
         [sortedsupp, sidx]=sort(t);
         if length(unique(sortedsupp))>=4+mean([shrtail shrhead])
             
-            tnotail=t(sidx(1+shrtail:end));
+            tnotail=t(sidx(1+shrtail:end));tr=tnotail;
             suppnotail=supp(sidx(1+shrtail:end));
                 
-            tr=tnotail+opt.randFit*rand(1,length(tnotail));
+%             tr=tnotail+opt.randFit*rand(1,length(tnotail));
             xy=[allpoints.xp(suppnotail);allpoints.yp(suppnotail)];
                     
             sfit=splinefit(tr,xy,mhs(used(m)).pieces);
@@ -34,10 +34,10 @@ nUsed=length(used);
             mhsnew(addedShrink) = sfit;                   
             
             
-            tnohead=t(sidx(1:end-shrhead));
+            tnohead=t(sidx(1:end-shrhead));tr=tnohead;
             suppnohead=supp(sidx(1:end-shrhead));
                 
-            tr=tnohead+opt.randFit*rand(1,length(tnohead));
+%             tr=tnohead+opt.randFit*rand(1,length(tnohead));
             xy=[allpoints.xp(suppnohead);allpoints.yp(suppnohead)];
                     
             sfit=splinefit(tr,xy,mhs(used(m)).pieces);

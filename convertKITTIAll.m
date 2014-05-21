@@ -1,7 +1,7 @@
 %%
-for s=0:28
+for s=0:20
     cd /home/amilan/storage/databases/KITTI/tracking/devkit_tracking/matlab
-    tracklets=readLabels('../../testing/label_02',s);
+    tracklets=readLabels('../../training/label_02',s);
     cd /home/amilan/research/projects/dctracking
-    convertKITTIToCVML(tracklets,sprintf('/home/amilan/storage/databases/KITTI/tracking/testing/label_02/%04d.xml',s),{'Car','Van'});
+    convertKITTIToCVML(tracklets,sprintf('/home/amilan/storage/databases/KITTI/tracking/training/label_02/%04d.xml',s),{'Car','Van'});
 end

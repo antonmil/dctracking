@@ -35,7 +35,7 @@ if sceneInfo.gtAvailable && opt.verbosity>=3
 end
 
 if ~mod(itcnt,10)
-    printMessage(2,'\n ----- INFO (%3d) --------|| ------------- ENERGY  VALUES ----------------| --------------- Label Cost ------------ |||%s',sceneInfo.scenario,gtheader);
+    printMessage(2,'\n -- S: %03d, (%3d : %3d) --|| ------------- ENERGY  VALUES ----------------| --------------- Label Cost ------------ |||%s',sceneInfo.scenario,sceneInfo.frameNums(1), sceneInfo.frameNums(end),gtheader);
     printMessage(2,'\n  it| time|tot|act|add|rem||  Energy|   Data| Smth| DetExc| TrjExc|  Lcost|  hreg|  hlin|  hang|  hper|  hocc|  hseg|||%s\n',metheader);
 end
 

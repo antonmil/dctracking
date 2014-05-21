@@ -1,4 +1,8 @@
-function [fx, dfx, energy]= EconBS( ...
+% function [fx, dfx, energy]= EconBS( ...
+%     coefs,splines,alldpoints, alldvpoints, opt, sceneInfo, labeling, vlabeling, oldEnergy)
+
+function [fx, dfx, energy, fxDat, dfxDat, fxLin, dfxLin, fxAng, dfxAng, ...
+    fxPer, dfxPer, fxExc, dfxExc, fxSeg, dfxSeg]= EconBS( ...
     coefs,splines,alldpoints, alldvpoints, opt, sceneInfo, labeling, vlabeling, oldEnergy)
 
 % This function computes the energy of the current state
@@ -73,6 +77,7 @@ if wtEdat
         end
     end
 end
+fxDat=EdatValue; dfxDat=dEdat;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,6 +99,7 @@ if wtElin
         end
     end
 end
+fxLin=ElinValue; dfxLin=dElin;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eang  -  angular velocity %
@@ -112,6 +118,7 @@ if wtEang
         end
      end
 end
+fxAng=EangValue; dfxAng=dEang;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eper  -  persistence   %
@@ -129,6 +136,7 @@ if wtEper
         end
     end
 end
+fxPer=EperValue; dfxPer=dEper;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eexc -  traj.-level exclusion %
@@ -146,6 +154,8 @@ if wtEexc
         end
     end
 end
+fxExc=EexcValue; dfxExc=dEexc;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Efid -  data fidelity  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,6 +179,8 @@ if wtEseg
         end
     end
 end
+fxSeg=EsegValue; dfxSeg=dEseg;
+
 % apply weighting
 EdatValue = wtEdat * EdatValue; dEdat = wtEdat * dEdat;
 ElinValue = wtElin * ElinValue; dElin = wtElin * dElin;

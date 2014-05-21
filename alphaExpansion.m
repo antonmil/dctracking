@@ -24,7 +24,22 @@ end
 %% The general case starts here
 global DcostAlphaAux
 
-
+% first determine algorithm
+switch(dcOpt.disOpt.alg)
+    case 'TRWS'
+        disAlg=1;
+    case 'QPBO'
+        disAlg=2;
+    case 'MQPBO'
+        disAlg=3;
+    case 'ICM'
+        disAlg=4;
+    case 'TRWSi'
+        disAlg=5;
+    case 'FastPD'
+        disAlg=6;
+end
+%%
 
 
 % for debugging...
@@ -461,7 +476,7 @@ while ~converged && alphaExpIt<maxIt
                 [Eogm, directLabeling]= ...
                     binaryInference(DcostAlphaAux,Auxmatcl,dcOpt.pairwiseFactor, Lcostcl,LcostInd, ...
                     dcOpt.exclusionFactor,binLabeling,Dpw,Dpwi,Expw,Expwi, notAlphasNoOutlier, pwLcost, nAux, ...
-                    dcOpt.disOpt.infParam,0,dcOpt.disOpt.alg);
+                    dcOpt.disOpt.infParam,0,disAlg);
                 
                 % % %                 allE=[]; dlab=[];
                 % % %                 [allE(1), dlab(1).dl]= ...

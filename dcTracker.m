@@ -61,6 +61,7 @@ global Dcost Lcost Scost
 
 global TNeighbors SNeighbors T% TODO REMOVE
 global alldpoints; % TODO REMOVE THIS LINE
+global stInfTMP enTMP
 
 global LOG_allens LOG_allmets2d LOG_allmets3d %for debug output
 global LOG_allensdetailed
@@ -72,8 +73,18 @@ scenario=41;
 if nargin, scenario=scen; end
 
 % fill options struct with default if not given as parameter
-opt=getDCOptions;
-if nargin>1,    opt=options;end
+% opt=getDCOptions;
+opt=parseDCOptions('config/default2d.ini');
+if nargin>1,    
+    if isstruct(opt)
+        opt=options;
+    elseif ischar(opt)
+        opt=parseDCOptions(opt);
+%         opt
+    else
+        error('options parameters not recognized')
+    end
+end
 
 randrun=opt.randrun;
 
@@ -99,7 +110,7 @@ LOG_allensdetailed=[];
 
 frames=1:length(sceneInfo.frameNums);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-frames=21:30; % do a part of the whole sequence
+% frames=21:30; % do a part of the whole sequence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if exist('doframes2.txt','file'), frl=load('doframes2.txt'); frames=frl(1):frl(2); end
 
@@ -125,18 +136,6 @@ if opt.visOptim,  reopenFig('optimization'); end
 T=size(detections,2);                   % length of sequence
 stateInfo.F=T; stateInfo.frameNums=sceneInfo.frameNums;
 
-if isempty([detections(:).xi])
-    fprintf('no detections present\n');
-    [metrics2d, metrics3d, m2i, m3i, addInfo2d, addInfo3d]=getMetricsForEmptySolution();
-    stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
-    stateInfo.X=[];stateInfo.Y=[];
-    stateInfo.sceneInfo=sceneInfo;    stateInfo.opt=opt;
-    stateInfo.splines=[];    stateInfo.outlierLabel=0;    stateInfo.labeling=[];
-    
-    allens=zeros(1,5);
-    return;
-end
-
 % fill remaining parameters that depend on sceneInfo
 conffile='config/conOpt.txt';
 global glclnr
@@ -145,6 +144,20 @@ if isdeployed
 end
 opt=getAuxOpt(conffile,opt,sceneInfo,T);
 checkDCOptions(opt);    % Check options for correctness
+
+
+if isempty([detections(:).xi])
+    fprintf('no detections present\n');
+    [metrics2d, metrics3d, m2i, m3i, addInfo2d, addInfo3d]=getMetricsForEmptySolution();
+%     stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
+%     stateInfo.X=[];stateInfo.Y=[];
+    stateInfo.sceneInfo=sceneInfo;    stateInfo.opt=opt;
+    stateInfo.splines=[];    stateInfo.outlierLabel=0;    stateInfo.labeling=[];
+    
+    allens=zeros(1,5);
+    return;
+end
+
 
 
 % top image limit
@@ -214,9 +227,9 @@ end
 
     
 %% remove unn. frames from camPar (UNUSED)
-if opt.track3d
-    if length(sceneInfo.camPar)>1, sceneInfo.camPar=sceneInfo.camPar(frames); end
-end
+% if opt.track3d
+%     if length(sceneInfo.camPar)>1, sceneInfo.camPar=sceneInfo.camPar(frames); end
+% end
 
 %% set initial labeling to all outliers
 nCurModels=length(mhs);
@@ -411,6 +424,7 @@ while 1
     mhsbeforerefit=mhs;
     
     ticCont=tic;
+    stInfTMP=stateInfo; enTMP=energy; % TEMPORARY, Debugging
     mhsnew=minContinuousEnergy( ...
         mhs,opt, alldpoints, Nhood, used, labeling, Dcost, sceneInfo, stateInfo, energy);
     tocCont=toc(ticCont);

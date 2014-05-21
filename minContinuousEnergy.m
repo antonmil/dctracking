@@ -17,6 +17,7 @@ global LOG_allens dcStartTime
 if strcmpi(opt.conOpt.alg,'lsfit')
 %     splinesnew=reestimateSplines(alldpoints,Nhood,used,labeling,nLabels,splines,Dcost,opt,sceneInfo,1);
     splinesnew=minContinuousEnergySimple(splines, used, alldpoints, labeling, Nhood, outlierLabel, opt);
+    energy3=evaluateEnergy(alldpoints, Nhood, labeling, splinesnew, opt, []);
 % elseif strcmpi(opt.conOpt.alg,'simplex')
 %     energy=evaluateEnergy(alldpoints, Nhood, labeling, splines, opt, []);
 %     splinesnew1=reestimateSplines(alldpoints,Nhood,used,labeling,nLabels,splines,Dcost,opt,sceneInfo,0);
@@ -30,15 +31,15 @@ if strcmpi(opt.conOpt.alg,'lsfit')
 else
 %     energy=evaluateEnergy(alldpoints, Nhood, labeling, splines, opt, []);
 
-    if opt.readjustSE
-        ticRSR=tic;
-        splines=readjustSplineRange(splines,labeling,used, alldpoints,Nhood,opt);
-        tocRSR=toc(ticRSR);
-        energy1=evaluateEnergy(alldpoints, Nhood, labeling, splines, opt, []);
-        [m2d, m3d]=printDCUpdateOGM(stateInfo,splines,used,0,0,0,energy1,'a');
-        energy1=energyLogs(energy1,4,0,tocRSR,toc(dcStartTime));
-        LOG_allens=[LOG_allens energy1];
-    end
+%     if opt.readjustSE
+%         ticRSR=tic;
+%         splines=readjustSplineRange(splines,labeling,used, alldpoints,Nhood,opt);
+%         tocRSR=toc(ticRSR);
+%         energy1=evaluateEnergy(alldpoints, Nhood, labeling, splines, opt, []);
+%         [m2d, m3d]=printDCUpdateOGM(stateInfo,splines,used,0,0,0,energy1,'a');
+%         energy1=energyLogs(energy1,4,0,tocRSR,toc(dcStartTime));
+%         LOG_allens=[LOG_allens energy1];
+%     end
     
     energy2.value=0;
     if opt.conOpt.initSimple
