@@ -1,4 +1,11 @@
-function opt=parseDCOptions(inifile)
+function opt=readDCOptions(inifile)
+% parse configuration for DCO Tracking
+
+if ~exist(inifile,'file')
+    fprintf('WARNING! Config file %s does not exist! Using default setting...\n',inifile);
+    inifile='config/default2d.ini';
+end
+
 
 ini=IniConfig();
 ini.ReadFile(inifile);

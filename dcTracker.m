@@ -74,16 +74,17 @@ if nargin, scenario=scen; end
 
 % fill options struct with default if not given as parameter
 % opt=getDCOptions;
-opt=parseDCOptions('config/default2d.ini');
 if nargin>1,    
-    if isstruct(opt)
+    if isstruct(options)
         opt=options;
-    elseif ischar(opt)
-        opt=parseDCOptions(opt);
+    elseif ischar(options)
+        opt=readDCOptions(options);
 %         opt
     else
         error('options parameters not recognized')
     end
+else
+    opt=readDCOptions('config/default2d.ini');    
 end
 
 randrun=opt.randrun;
