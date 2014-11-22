@@ -38,8 +38,8 @@ nUsed=length(used);
                     taillinepts=ppval(tailline,sortedsupp(1)-exttail:sortedsupp(1)-1);
                     
                     xy=[taillinepts xy];
-                    t=[sortedsupp(1)-exttail:sortedsupp(1)-1 t];
-                    tr=t+opt.randFit*rand(1,length(t));
+                    t=[sortedsupp(1)-exttail:sortedsupp(1)-1 t];tr=t;
+%                     tr=t+opt.randFit*rand(1,length(t));
                     
                     
                     sfit=splinefit(tr,xy,mhs(used(m)).pieces);                                        
@@ -65,8 +65,8 @@ nUsed=length(used);
                     headlinepts=ppval(headline,sortedsupp(end)+1:sortedsupp(end)+exthead);
                     
                     xy=[xy headlinepts];
-                    t=[t sortedsupp(end)+1:sortedsupp(end)+exthead];
-                    tr=t+opt.randFit*rand(1,length(t));
+                    t=[t sortedsupp(end)+1:sortedsupp(end)+exthead];tr=t;
+%                     tr=t+opt.randFit*rand(1,length(t));
                     
                     
                     sfit=splinefit(tr,xy,mhs(used(m)).pieces);

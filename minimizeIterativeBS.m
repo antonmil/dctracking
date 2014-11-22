@@ -156,6 +156,7 @@ xvec=BSplinesToVec(bspl);
 
 global gxvec
 gxvec=xvec;
+% global bspl newOrigLabeling
 % [fold, df]=EconBS(xvec,splinesActive);
 % checkgrad('EconBS',xvec, 1,bspl, ...
 %         alldpoints, ptsAndVPoints, dcOpt, sceneInfo, newOrigLabeling, newLabeling, energy)

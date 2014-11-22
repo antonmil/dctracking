@@ -8,9 +8,9 @@ elseif  opt.dataFunction==3
     error('Lorentzian data loss not implemented for continuous case');
 end
 
-if opt.readjustSE && ~opt.conOpt.enParEseg
-    warning('start/end points are beeing readjusted, but curvature not regularized');
-end
+% if opt.readjustSE && ~opt.conOpt.enParEseg
+%     warning('start/end points are beeing readjusted, but curvature not regularized');
+% end
 % if opt.fidelityFactor>0
 %     warning('Occlusion gaps component not implemented for continuous case!');
 % end

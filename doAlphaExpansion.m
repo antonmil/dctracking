@@ -7,9 +7,17 @@ function [E, D, S, L, labeling] = ...
 % The gco code is available at
 % http://vision.csd.uwo.ca/code/
 
+[nLabels, nPoints]=size(Dcost);
+
+% trivial case for one label
+if nLabels==1
+    D=sum(Dcost);    S=0; L=Lcost;    E=D+S+L;
+    labeling=ones(1,nPoints);
+    return;
+end
+
 
 % set up GCO structure
-[nLabels, nPoints]=size(Dcost);
 
 h=setupGCO(nPoints,nLabels,Dcost,Lcost,Scost,Neighborhood);
 
