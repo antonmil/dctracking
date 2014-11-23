@@ -105,7 +105,7 @@ To speed up things, you should compile the extensive energy components computati
 
     compileMex
 
-It is possible to switch off mex calls by setting opt.mex=0 in "getDCOptions.n".
+It is possible to switch off mex calls by setting opt.mex=0 in "getDCOptions.m".
 But this is not recommended.
 
 ### GCO
