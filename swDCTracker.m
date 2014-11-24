@@ -1,4 +1,4 @@
-function [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(scen,options,swfile)
+function [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(scen,optfile,swfile)
 % do temporal sliding window optimization, Sec. 5.5 PAMI
 
 % scen=71;
@@ -21,12 +21,10 @@ allstInfo=[];
 addPaths;
 
 
-global opt;
-opt=getDCOptions;
-opti=opt;
-if nargin==2
-    opti=options;
-end
+% global opt;
+% opt=getDCOptions;
+opti=readSTOptions(optfile);
+
 sceneInfo=getSceneInfo(scenario);
 allframeNums=sceneInfo.frameNums;
 F=length(allframeNums);

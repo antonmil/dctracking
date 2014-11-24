@@ -61,7 +61,13 @@ function opt = fillInOpt(opt, ini, sec)
 keys = ini.GetKeys(sec);
 for k=1:length(keys)
     key=char(keys{k});
-    opt = setfield(opt,key,ini.GetValues(sec,key));
+    val=ini.GetValues(sec,key);
+    
+    % parameters are numeric
+    if isstr(val) && strcmpi(sec,'Parameters')
+        val=str2double(val);
+    end
+    opt = setfield(opt,key,val);
 end
 
 end

@@ -596,9 +596,9 @@ end
 energy_olga=evaluateEnergy(alldpoints, Nhood, ...
     double(olga_labeling), mhs, dcOpt, precomp);
 if energy.value>energy_olga.value
-    fprintf('graph cuts did better\n');
-        Eogm=energy_olga.value;
-        newupLabeling=double(olga_labeling);
+%     fprintf('graph cuts did better\n');
+%         Eogm=energy_olga.value;
+%         newupLabeling=double(olga_labeling);
 end
 
 logm=newupLabeling;
