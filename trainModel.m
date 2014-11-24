@@ -104,8 +104,8 @@ else
   learniter=str2double(learniter)
 
   mets2d=zeros(max(allscen),14);
-  mets3d=zeros(max(allscen),14);
-  ens=zeros(max(allscen),1);
+  mets3d=zeros(max(allscen),14);  
+  ens=zeros(max(allscen),5);
 
   for scenario=allscen
 	  fprintf('jobid: %d,   learn iteration %d\n',jobid,learniter);
@@ -121,7 +121,7 @@ else
 
 	  mets2d(scenario,:)=metrics2d;
 	  mets3d(scenario,:)=metrics3d;
-	  ens(scenario)=double(energies);
+	  ens(scenario,:)=double(energies);
 	  infos(scenario).stateInfo=stateInfo;
 
   end

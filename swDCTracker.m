@@ -23,7 +23,7 @@ addPaths;
 
 % global opt;
 % opt=getDCOptions;
-opti=readSTOptions(optfile);
+opti=readDCOptions(optfile);
 
 sceneInfo=getSceneInfo(scenario);
 allframeNums=sceneInfo.frameNums;
@@ -103,7 +103,9 @@ stateInfo=stitchTemporalWindows(allstInfo,stInfo,allwins,overlapSize);
 opt.frames=1:length(stateInfo.frameNums);
 [metrics2d, metrics3d]=printFinalEvaluation(stateInfo, gtInfo, sceneInfo, stInfo.opt);
 
+whos allallens
 allens=mean(allallens);
+whos allens
 %%
 % clf
 % hold on
