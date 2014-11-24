@@ -124,8 +124,7 @@ while ~converged && alphaExpIt<maxIt
         [pPoints,pTN, pSN, pDcost, pLabeling,keeppts]= ...
             pruneGraph(alldpoints,labeling,Dcost,TNeighbors,SNeighbors,tmpState2,expLab,outlierLabel,mh,dcOpt,T);
         [npLabels, npPoints]=size(pDcost);
-        
-        
+
         
         pOlgaLabeling=olga_labeling(keeppts);
         alpInds=find(pLabeling==expLab);         % which nodes are alpha
@@ -473,6 +472,7 @@ while ~converged && alphaExpIt<maxIt
             try
 %                 dlmwrite('start_labelin.txt',binLabeling);
 %                 pause(.1)
+
                 [Eogm, directLabeling]= ...
                     binaryInference(DcostAlphaAux,Auxmatcl,dcOpt.pairwiseFactor, Lcostcl,LcostInd, ...
                     dcOpt.exclusionFactor,binLabeling,Dpw,Dpwi,Expw,Expwi, notAlphasNoOutlier, pwLcost, nAux, ...
@@ -596,9 +596,9 @@ end
 energy_olga=evaluateEnergy(alldpoints, Nhood, ...
     double(olga_labeling), mhs, dcOpt, precomp);
 if energy.value>energy_olga.value
-    % fprintf('graph cuts did better\n');
-    %     Eogm=energy_olga.value;
-    %     newupLabeling=double(olga_labeling);
+    fprintf('graph cuts did better\n');
+        Eogm=energy_olga.value;
+        newupLabeling=double(olga_labeling);
 end
 
 logm=newupLabeling;

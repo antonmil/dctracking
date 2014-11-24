@@ -165,12 +165,12 @@ if opt.track3d
     opt.visOptim=1;
 
     
-    opt.met2d=0;
-    opt.unaryFactor=10;
-    opt.outlierCost=1000;
-    opt.slopeFactor=.005;
-    opt.labelCost=50;
-    opt.persistenceFactor=1;
+%     opt.met2d=0;
+%     opt.unaryFactor=10;
+%     opt.outlierCost=1000;
+%     opt.slopeFactor=.005;
+%     opt.labelCost=50;
+%     opt.persistenceFactor=1;
 
     
 
@@ -180,7 +180,7 @@ end
 %     opt.disOpt.alg=1; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
 %     opt.disOpt.infParam=[100,0,1]; % TRWS: nIter, randStart, doBPS
     
-    opt.disOpt.alg=2; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
+    opt.disOpt.alg='QPBO'; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD
     opt.disOpt.infParam=[1,1,1]; % QPBO: useProb, strongPer, useImpr
 
 %     opt.disOpt.alg=3; % 1=TRWS, 2=QPBO, 3=MQPBO, 4=ICM, 5=TRWSi, 6=FastPD

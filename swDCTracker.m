@@ -18,7 +18,7 @@ if exist(swfile,'file')
 end
 
 allstInfo=[];
-addPaths();
+addPaths;
 
 
 global opt;
