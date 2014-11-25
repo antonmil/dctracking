@@ -20,7 +20,7 @@ resdir=sprintf('results/%s',settingsDir);
 if ~exist(resdir,'dir'), mkdir(resdir); end
 resdir
 
-
+trainStartTime=tic;
 resultsfile=sprintf('%s/res_%03d.mat',resdir,jobid);
 
 % if computed alread, just load it
@@ -139,6 +139,9 @@ else
     end
   end
 end
+
+printMessage(1,'Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
+    toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
 
 % evaluate what we have so far
 bestexper=combineResultsRemote(settingsDir);

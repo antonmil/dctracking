@@ -1,6 +1,6 @@
 addpath(genpath('../motutils'))
 
-resdir='results/1114d-1';
+resdir='results/1124c-2';
 if exist('setting','var')
 	resdir=sprintf('results/%s',setting);
 end
@@ -11,7 +11,7 @@ disp(resdir)
 resfiles=dir(sprintf('%s/res_*.mat',resdir));
 if length(resfiles)<20
     fprintf('copying...\n');
-    remfld='amilan@moby.cs.adelaide.edu.au:/home/h3/amilan/research/projects/segtracking/';    
+    remfld='amilan@moby.cs.adelaide.edu.au:/home/h3/amilan/research/projects/dctracking/';    
     copcommand= sprintf('!rcp -q %s%s/* %s',remfld,resdir,resdir);
     
     eval(copcommand);
