@@ -33,7 +33,9 @@ for t=allt
 		% nrm
 		% nrm<opt.tau*10
 		% nrm>opt.tau/2
-		tokeep=find(nrm<opt.tau*10 & nrm>opt.tau/2);
+        % TODO, move this pruning to pruneGraph.m
+% 		tokeep=find(nrm<opt.tau*10 & nrm>opt.tau/2);
+        tokeep=find(nrm>opt.tau/2);
         allpairs=allpairs(tokeep,:);
 		% allpairs=allpairs(nrm>opt.tau/2,:);
 %                 allpairs

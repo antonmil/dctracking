@@ -23,7 +23,7 @@ function [metrics2d, metrics3d, allens, stateInfo]= ...
 %  
 %  
 %  
-% (C) Anton Milan, 2011-2014
+% (C) Anton Milan, 2011-2015
 %     anton.milan at adelaide dot edu dot au
 %
 % The code may be used free of charge for non-commercial and

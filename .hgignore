@@ -3,3 +3,6 @@ data/*
 external/*
 out/*
 tmp/*
+logs/*
+config/11*
+results/*
