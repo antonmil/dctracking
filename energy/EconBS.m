@@ -169,7 +169,7 @@ EfidValue=0; dEfid=zeros(length(stateVec),1);
 EsegValue=0; dEseg=zeros(length(stateVec),1);
 if wtEseg
     if opt.mex
-        save('EbndBS.mat','stateVec','parEseg','spInfo','knots','index');
+%          save('EbndBS.mat','stateVec','parEseg','spInfo','knots','index');
         [EsegValue, dEseg]=EbndBS_mex(stateVec,parEseg,spInfo,knots,index);
     else
         if nargout>1
