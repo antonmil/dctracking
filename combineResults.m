@@ -1,27 +1,44 @@
 addpath(genpath('../motutils'))
 
-resdir='results/1124c-2';
+setting='1125Pbd-1';
+resdir=['results/', setting];
+confdir=['config/', setting];
+
+
 if exist('setting','var')
 	resdir=sprintf('results/%s',setting);
 end
 if ~exist(resdir,'dir'), mkdir(resdir); end
-
+if ~exist(confdir,'dir'), mkdir(confdir); end
 disp(resdir)
 
+remfld='amilan@moby.cs.adelaide.edu.au:/home/h3/amilan/research/projects/dctracking/config/';
+copcommand= sprintf('!rcp -q %s%s/*.txt %s', remfld,setting,confdir);eval(copcommand);
+copcommand= sprintf('!rcp -q %s%s/default.ini %s', remfld,setting,confdir);eval(copcommand);
+fprintf('done \n');
+
+try
+    maxexper=dlmread(fullfile(confdir,'maxexper.txt'));
+catch
+    maxexper=20;
+end
+
 resfiles=dir(sprintf('%s/res_*.mat',resdir));
-if length(resfiles)<20
+fprintf('Results available: %d (of %d)\n',length(resfiles),maxexper);
+if length(resfiles)<maxexper
     fprintf('copying...\n');
     remfld='amilan@moby.cs.adelaide.edu.au:/home/h3/amilan/research/projects/dctracking/';    
-    copcommand= sprintf('!rcp -q %s%s/* %s',remfld,resdir,resdir);
+    copcommand= sprintf('!rcp -q %s%s/res_*.mat %s',remfld,resdir,resdir);
     
     eval(copcommand);
     fprintf('done \n');
 end
-
+resfiles=dir(sprintf('%s/res_*.mat',resdir));
+fprintf('Results available: %d (of %d)\n',length(resfiles),maxexper);
 %%
 allmets=[];
 fullmota=[];
-for r=1:20
+for r=1:maxexper
     resfile=sprintf('%s/res_%03d.mat',resdir,r);
     if exist(resfile,'file')
         load(resfile);
