@@ -21,6 +21,13 @@ if dcOpt.unaryFactor && ~dcOpt.pairwiseFactor && ~dcOpt.exclusionFactor && ~sum(
     return;
 end
 
+% if we have only one (outlier) label
+if size(Dcost,1)<2
+    logm=labeling;
+    Eogm=length(labeling)*dcOpt.outlierCost;
+    return;
+end
+
 %% The general case starts here
 global DcostAlphaAux
 

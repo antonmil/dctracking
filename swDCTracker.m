@@ -121,6 +121,11 @@ for r=randruns
   RRstates(r).stateInfo=stateInfo;
 end  % for randrun
 
+% fill randruns that were not run with Inf
+for r=setdiff(1:max(randruns),randruns)
+    RRens(r,:)=Inf;
+end
+
 % find out which random run was best
 RRm2d
 RRm3d
