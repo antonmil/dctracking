@@ -17,7 +17,6 @@ if exist(swfile,'file')
     windowSize=swparams(1);minWindowSize=swparams(2);overlapSize=swparams(3);
 end
 
-allstInfo=[];
 addPaths;
 
 
@@ -29,6 +28,7 @@ randruns=opti.randrun
 RRm2d=[];RRm3d=[];RRens=[];RRstates=[];
 % do several randruns if necessary
 for r=randruns
+  allstInfo=[];
   opti=readDCOptions(optfile);
   opti.randrun=r;
   
@@ -122,6 +122,10 @@ for r=randruns
 end  % for randrun
 
 % find out which random run was best
+RRm2d
+RRm3d
+RRens
+sum(RRens,2)
 [minv, bestr]=min(sum(RRens,2));
 fprintf('Best Run: %d, energy: %f\n',bestr,minv);
 
@@ -131,6 +135,9 @@ metrics3d=RRm3d(bestr,:);
 allens=RRens(bestr,:);
 stateInfo=RRstates(bestr).stateInfo;
 
+
+printMetrics(metrics2d);
+printMetrics(metrics3d);
 
 
 %%

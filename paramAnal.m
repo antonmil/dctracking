@@ -4,6 +4,7 @@ function paramAnal(jobname,jobid)
 addpath(genpath('../motutils/'));
 format compact
 
+[~,hname]=system('hostname')
 settingsDir=strsplit(jobname,'-');
 runname=char(settingsDir{1})
 learniter=char(settingsDir{2})
@@ -19,7 +20,7 @@ confdir
 resdir=sprintf('results/%s',settingsDir);
 if ~exist(resdir,'dir'), mkdir(resdir); end
 resdir
-
+trainStartTime=tic;
 
 resultsfile=sprintf('%s/res_%03d.mat',resdir,jobid);
 
@@ -160,8 +161,14 @@ else
   end
 end
 
+
+
+fprintf('Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
+    toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
+
+
 % evaluate what we have so far
-bestexper=combineResultsRemote(settingsDir);
+bestexper=combineResultsRemote(settingsDir,maxexper);
 
 querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
 [rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running

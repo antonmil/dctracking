@@ -4,6 +4,7 @@ function trainModel(jobname,jobid,maxexper)
 addpath(genpath('../motutils/'));
 format compact
 
+[~,hname]=system('hostname')
 settingsDir=strsplit(jobname,'-');
 runname=char(settingsDir{1})
 learniter=char(settingsDir{2})
