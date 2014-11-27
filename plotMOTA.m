@@ -1,3 +1,5 @@
+%% sav
+
 %%
 inifile=fullfile(confdir,'default.ini');
 ini=IniConfig();
@@ -19,19 +21,72 @@ end
 resdone=find(resdone);
 ndone=numel(resdone);
 
-allmota=-10*ones(1,maxexper);
+allmota=-50*ones(1,maxexper);
 allmota(resdone)=allmets(resdone,12);
+
+%% determine par a,b,...i
+numdir='/home/amilan/research/papers/ongoing/anton-pami/code/paramAnal/';
+s1=strfind(setting,'P');s2=strfind(setting,'-');
+par=setting(s1+1:s2-1);
+motafile=fullfile(numdir,[par '.txt']);
+dlmwrite(motafile,allmota);
+
+pname='?';
+switch (par)
+    case 'a'
+        pname='outlier';
+    case 'b'
+        pname='labelcost';
+    case 'c'
+        pname='unary';
+    case 'd'
+        pname='parsistence';
+    case 'e'
+        pname='ang. vel.';
+    case 'f'
+        pname='lin. vel.';
+    case 'g'
+        pname='prox. cost';
+    case 'h'
+        pname='exclusion';
+    case 'i'
+        pname='pairwise';
+end
+
+
+
 
 if ndim==1
     u=1:maxexper;
-    X=u;
+    X=uval*(u-1)/(maxexper-1);
     
     Z=allmota;
     plot(X,Z);
     xlabel('multiplier');
     ylabel('MOTA [%]');
     
-    legend('var 1');
+pname='?';
+switch (par)
+    case 'a'
+        pname='outlier';
+    case 'b'
+        pname='labelcost';
+    case 'c'
+        pname='unary';
+    case 'd'
+        pname='parsistence';
+    case 'e'
+        pname='ang. vel.';
+    case 'f'
+        pname='lin. vel.';
+    case 'g'
+        pname='prox. cost';
+    case 'h'
+        pname='exclusion';
+    case 'i'
+        pname='pairwise';
+end    
+    legend(pname);
     
 elseif ndim==2
     gridX=round(sqrt(maxexper));
@@ -52,8 +107,34 @@ elseif ndim==2
     view(2);
     colorbar
     title('MOTA [%]')
-    xlabel('multiplier p1');
-    ylabel('multiplier p2');
+    
+    pname1='?';
+    switch (par(1))
+        case 'a', pname1='outlier';
+        case 'b', pname1='labelcost';
+        case 'c', pname1='unary';
+        case 'd', pname1='parsistence';
+        case 'e', pname1='ang. vel.';
+        case 'f', pname1='lin. vel.';
+        case 'g', pname1='prox. cost';
+        case 'h', pname1='exclusion';
+        case 'i', pname1='pairwise';
+    end
+    pname2='?';
+    switch (par(2))
+        case 'a', pname2='outlier';
+        case 'b', pname2='labelcost';
+        case 'c', pname2='unary';
+        case 'd', pname2='parsistence';
+        case 'e', pname2='ang. vel.';
+        case 'f', pname2='lin. vel.';
+        case 'g', pname2='prox. cost';
+        case 'h', pname2='exclusion';
+        case 'i', pname2='pairwise';
+    end
+    
+    xlabel(pname1);
+    ylabel(pname2);
 end
 
 set(gca,'FontSize',16);

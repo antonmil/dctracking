@@ -1,6 +1,6 @@
 addpath(genpath('../motutils'))
 
-setting='1125Pbd-1';
+setting='1125Pa-1';
 resdir=['results/', setting];
 confdir=['config/', setting];
 
@@ -82,4 +82,7 @@ meanmets=mean(bestmets);
 meanmets(:,intmets)=round(meanmets(:,intmets));
 
 printMetrics(meanmets);
-diary off
+
+if strfind(setting,'P')
+    plotMOTA;
+end

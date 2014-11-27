@@ -33,7 +33,7 @@ for r=randruns
   opti.randrun=r;
   
   
-  sceneInfo=getSceneInfo(scenario);
+  sceneInfo=getSceneInfo(scenario,opti);
   allframeNums=sceneInfo.frameNums;
   F=length(allframeNums);
   fromframe=1; toframe=windowSize;
