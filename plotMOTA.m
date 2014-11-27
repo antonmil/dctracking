@@ -21,7 +21,7 @@ end
 resdone=find(resdone);
 ndone=numel(resdone);
 
-allmota=-50*ones(1,maxexper);
+allmota=1*ones(1,maxexper);
 allmota(resdone)=allmets(resdone,12);
 
 %% determine par a,b,...i
@@ -134,8 +134,8 @@ elseif ndim==2
         case 'i', pname2='pairwise';
     end
     
-    xlabel(pname1);
-    ylabel(pname2);
+    xlabel(['x ' pname1]);
+    ylabel(['x ' pname2]);
 end
 
 set(gca,'FontSize',16);
