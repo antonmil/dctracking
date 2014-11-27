@@ -1,6 +1,13 @@
 addpath(genpath('../motutils'))
 
-setting='1125Pa-1';
+
+parlet={'a','b','c','d','e','f','g','h','i'};
+
+% for p=parlet
+% p=char(p);    
+p='bd';
+
+setting=['1125P',p,'-1'];
 resdir=['results/', setting];
 confdir=['config/', setting];
 
@@ -86,3 +93,7 @@ printMetrics(meanmets);
 if strfind(setting,'P')
     plotMOTA;
 end
+
+
+% pause(.01);
+% end

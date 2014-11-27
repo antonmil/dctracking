@@ -40,7 +40,7 @@ switch (par)
     case 'c'
         pname='unary';
     case 'd'
-        pname='parsistence';
+        pname='persistence';
     case 'e'
         pname='ang. vel.';
     case 'f'
@@ -74,7 +74,7 @@ switch (par)
     case 'c'
         pname='unary';
     case 'd'
-        pname='parsistence';
+        pname='persistence';
     case 'e'
         pname='ang. vel.';
     case 'f'
@@ -100,7 +100,8 @@ elseif ndim==2
     Y=uval*(v-1)/(gridX-1);
     
     
-    Z=reshape(allmota,gridX,gridY);
+    % needs to be transposed
+    Z=reshape(allmota,gridX,gridY)';
     surfc(X,Y,Z)
     zlim([-100 100]);
     
@@ -113,7 +114,7 @@ elseif ndim==2
         case 'a', pname1='outlier';
         case 'b', pname1='labelcost';
         case 'c', pname1='unary';
-        case 'd', pname1='parsistence';
+        case 'd', pname1='persistence';
         case 'e', pname1='ang. vel.';
         case 'f', pname1='lin. vel.';
         case 'g', pname1='prox. cost';
@@ -125,7 +126,7 @@ elseif ndim==2
         case 'a', pname2='outlier';
         case 'b', pname2='labelcost';
         case 'c', pname2='unary';
-        case 'd', pname2='parsistence';
+        case 'd', pname2='persistence';
         case 'e', pname2='ang. vel.';
         case 'f', pname2='lin. vel.';
         case 'g', pname2='prox. cost';

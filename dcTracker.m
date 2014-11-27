@@ -147,8 +147,8 @@ opt=getAuxOpt(conffile,opt,sceneInfo,T);
 checkDCOptions(opt);    % Check options for correctness
 
 
-if isempty([detections(:).xi])
-    fprintf('no detections present\n');
+if numel([detections(:).xi])<5
+    fprintf('Too few detections present. Exit.\n');
     [metrics2d, metrics3d, m2i, m3i, addInfo2d, addInfo3d]=getMetricsForEmptySolution();
 %     stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
 %     stateInfo.X=[];stateInfo.Y=[];
