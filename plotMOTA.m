@@ -21,7 +21,7 @@ end
 resdone=find(resdone);
 ndone=numel(resdone);
 
-allmota=1*ones(1,maxexper);
+allmota=-50*ones(1,maxexper);
 allmota(resdone)=allmets(resdone,12);
 
 %% determine par a,b,...i

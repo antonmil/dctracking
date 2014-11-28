@@ -5,7 +5,7 @@ parlet={'a','b','c','d','e','f','g','h','i'};
 
 % for p=parlet
 % p=char(p);    
-p='ab';
+p='bd';
 
 setting=['1125P',p,'-1'];
 resdir=['results/', setting];
