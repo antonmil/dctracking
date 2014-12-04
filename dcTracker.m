@@ -1,5 +1,5 @@
 function [metrics2d, metrics3d, allens, stateInfo]= ...
-    dcTracker(scen,options)
+    dcTracker(scene,options)
     
 % Discrete-Continuous Optimization for Multi-Target Tracking
 % with exclusion modeling
@@ -35,7 +35,11 @@ function [metrics2d, metrics3d, allens, stateInfo]= ...
 %  
 %  
 % input:
-% scen - a numerical value representing a specific video sequence
+% scene - description of the present scene, either
+%               a numerical value representing a specific video sequence or
+%               a struct containing all info or
+%               a file name to the scene.ini
+% 
 % options - a struct with all necessary options and parameters
 %
 % output
@@ -44,6 +48,7 @@ function [metrics2d, metrics3d, allens, stateInfo]= ...
 % alles     - energy values
 % stateInfo - a struct with tracking results
 
+% global start time
 global dcStartTime
 dcStartTime=tic;
 
@@ -146,7 +151,8 @@ end
 opt=getAuxOpt(conffile,opt,sceneInfo,T);
 checkDCOptions(opt);    % Check options for correctness
 
-
+% degenerate case, sequence has less than 5 detection
+% return empty solution
 if numel([detections(:).xi])<5
     fprintf('Too few detections present. Exit.\n');
     [metrics2d, metrics3d, m2i, m3i, addInfo2d, addInfo3d]=getMetricsForEmptySolution();
