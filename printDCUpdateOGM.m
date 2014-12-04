@@ -35,15 +35,15 @@ if sceneInfo.gtAvailable && opt.verbosity>=3
 end
 
 if ~mod(itcnt,10)
-    printMessage(2,'\n -- S: %03d, (%3d : %3d) --|| ------------- ENERGY  VALUES ----------------| --------------- Label Cost ------------ |||%s',sceneInfo.scenario,sceneInfo.frameNums(1), sceneInfo.frameNums(end),gtheader);
-    printMessage(2,'\n  it| time|tot|act|add|rem||  Energy|   Data| Smth| DetExc| TrjExc|  Lcost|  hreg|  hlin|  hang|  hper|  hocc|  hseg|||%s\n',metheader);
+    printMessage(2,'\n -- S: %04d, (%3d : %3d) --|| ------------- ENERGY  VALUES -----------------| ---------------- Label Cost ------------ |||%s',sceneInfo.scenario,sceneInfo.frameNums(1), sceneInfo.frameNums(end),gtheader);
+    printMessage(2,'\n   it| time|tot|act|add|rem||  Energy|    Data| Smth| DetExc| TrjExc|  Lcost|   hreg|  hlin|  hang|  hper|  hocc|  hseg|||%s\n',metheader);
 end
 
 [totEn, D, S, E, P, L, hreg, hlin, hang, hper, hocc, hseg] = ...
     getEnergyValues(allEnergies);
 
-%                tpcnt| time|tot|act|add|rem|| Ener| Data| Smth| DetE| TrjE| Lcst| hreg| hlin| hang| hper| hocc| hseg|
-printMessage(2,'%1s%3i|%5.1f|%3i|%3i|%3i|%3i||%8.1f|%7.1f|%5.1f|%7.1f|%7.1f|%7.1f|%6.1f|%6.1f|%6.1f|%6.1f|%6.1f|%6.1f|||', ...
+%                 tpcnt| time|tot|act|add|rem|| Ener|  Data| Smth| DetE| TrjE| Lcst|  hreg| hlin| hang| hper| hocc| hseg|
+printMessage(2,' %1s%3i|%5.1f|%3i|%3i|%3i|%3i||%8.1f|%8.1f|%5.1f|%7.1f|%7.1f|%7.1f|%7.1f|%6.1f|%6.1f|%6.1f|%6.1f|%6.1f|||', ...
     itType,itcnt, toc(dcStartTime)/60,length(splines),length(used),nNew, nRemoved, ...
     totEn,D,S,E,P,L,hreg,hlin,hang,hper,hocc,hseg); %%% iter output
 % pause

@@ -533,11 +533,11 @@ if ~isempty(lo),    newLabeling(lo)=outlierLabel; end
 
 
 %% final plot
-if usejava('desktop') && T<50
-    reopenFig('optimization');
-    prepFigure; drawPoints(alldpoints,newLabeling,outlierLabel,TNeighbors);
-    drawSplines(mhs(used),1:length(used),newLabeling,alldpoints,frames);
-end
+% if usejava('desktop') && T<50
+%     reopenFig('optimization');
+%     prepFigure; drawPoints(alldpoints,newLabeling,outlierLabel,TNeighbors);
+%     drawSplines(mhs(used),1:length(used),newLabeling,alldpoints,frames);
+% end
 
 %%
 stateInfo=getStateFromSplines(mhs(used), stateInfo);
