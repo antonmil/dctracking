@@ -127,6 +127,23 @@ else
 
   end
 
+  % KITTI
+
+%    if ~isempty(intersect(scenario,[500:899, 1500:1899]))
+    if isfield(opt,'KITTI')
+      a=infos(allscen);
+      kittiDir=sprintf('%s-%d',settingsDir,jobid)
+      metricsKITTI=evalKITTI(a,kittiDir,opt.KITTI);
+      metricsKITTI(1:12)=100*metricsKITTI(1:12); % percentages
+      KITTIToMineMapping=[6 7 9 19 10 11 12 14 15 16 17 1 2 3]
+      myMets=metricsKITTI(KITTIToMineMapping);
+      myMets(4:11)=round(myMets(4:11)); % rounding, carefull, also GT,MT, etc...
+    
+      for scenario=allscen
+  	mets2d(scenario,:)=myMets;
+      end
+      
+    end  
 
     
   save(resultsfile,'opt','mets2d','mets3d','ens','infos','allscen');

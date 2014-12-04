@@ -266,7 +266,8 @@ while ~converged && alphaExpIt<maxIt
             Dpwi=[]; % indicater whether equal or different
             UnAux=zeros(size(DcostAlphaAux));
             
-            if exist(['constructPairwise.' mexext],'file')
+%             if exist(['constructPairwise.' mexext],'file')
+            if dcOpt.mex
                 if dcOpt.pairwiseFactor
                     TNeighborsAux=full(pTN+pTN');
                     [UnAux2, Dpwa, Dpwb, Dpwi2]= ...
@@ -325,8 +326,8 @@ while ~converged && alphaExpIt<maxIt
             Expw=[];
             Expwi=[]; % indicater whether equal or different
             UnAuxE=zeros(size(DcostAlphaAux));
-            if exist(['constructPairwise.' mexext],'file')
-                
+%             if exist(['constructPairwise.' mexext],'file')
+            if dcOpt.mex
                 
                 % EXCLUSIONS FAST
                 if dcOpt.exclusionFactor && expLab~=nLabels
