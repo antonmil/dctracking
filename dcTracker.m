@@ -75,7 +75,7 @@ global mhs used labeling outlierLabel
 
 % what dataset/sequence?
 scenario=41;
-if nargin, scenario=scen; end
+if nargin, scenario=scene; end
 
 % fill options struct with default if not given as parameter
 % opt=getDCOptions;
@@ -103,7 +103,6 @@ end
 
 % fill scene info
 sceneInfo=getSceneInfo(scenario);
-
 
 % fill in empty output
 [metrics2d, metrics3d]=getMetricsForEmptySolution();
@@ -138,6 +137,13 @@ if opt.visOptim,  reopenFig('optimization'); end
 [detections, nPoints]=cutDetections(detections,nPoints,sceneInfo, opt);
 % detMatrices=getDetectionMatrices(detections);
 
+% additional scene Info from detections
+if ~isfield(sceneInfo,'targetAR')
+    sceneInfo.targetAR=mean([detections(:).wd]./[detections(:).ht]);
+end
+if ~isfield(sceneInfo,'targetSize')
+    sceneInfo.targetSize=mean([detections(:).wd]./2);
+end
 
 T=size(detections,2);                   % length of sequence
 stateInfo.F=T; stateInfo.frameNums=sceneInfo.frameNums;
