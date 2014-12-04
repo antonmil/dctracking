@@ -1,6 +1,6 @@
 #!/bin/sh
 
-grepstr='112';
+grepstr='12';
 if [[ $# -eq 1 ]]; then
 	grepstr=$1;
 fi

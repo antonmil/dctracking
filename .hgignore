@@ -5,4 +5,5 @@ out/*
 tmp/*
 logs/*
 config/11*
+config/12*
 results/*

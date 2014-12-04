@@ -110,6 +110,7 @@ for r=randruns
 
   opt.frames=1:length(stateInfo.frameNums);
   [metrics2d, metrics3d]=printFinalEvaluation(stateInfo, gtInfo, sceneInfo, stInfo.opt);
+  sceneInfo=getSceneInfo(scenario);
   if sceneInfo.gtAvailable
     if size(gtInfo.X,2)==0
         metrics2d(:)=0;
