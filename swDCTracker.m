@@ -1,4 +1,5 @@
-function [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(scen,optfile,swfile)
+function [metrics2d, metrics3d, allens, stateInfo, sceneInfo] =...
+    swDCTracker(scen,optfile,swfile)
 % do temporal sliding window optimization, Sec. 5.5 PAMI
 
 % scen=71;

@@ -1,4 +1,4 @@
-function [metrics2d, metrics3d, allens, stateInfo]= ...
+function [metrics2d, metrics3d, allens, stateInfo, sceneInfo]= ...
     dcTracker(scene,options)
     
 % Discrete-Continuous Optimization for Multi-Target Tracking
@@ -212,9 +212,10 @@ end
 
 global startPT
 %% get splines from DP [Pirsiavash et al.]
-if opt.startFromPir
-    if exist(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario),'file')
-        load(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario));
+if opt.startFromPir     
+        pOpt=getPirOptions;
+        [~, ~, ~, startPT]=runDP(scenario,pOpt,opt);
+    
         if opt.track3d
             [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
             startPT.Xgp=startPT.X;startPT.Ygp=startPT.Y;
@@ -223,9 +224,9 @@ if opt.startFromPir
                 startPT.Y=startPT.Y-startPT.H/2;
             end
         end
-        if isfield(startPT,'stateVec'), startPT=rmfield(startPT,'stateVec'); end
+
         if opt.track3d && opt.cutToTA,        startPT=cutStateToTrackingArea(startPT);    end
-        startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
+%         startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
                         
         
         mhsp=getSplinesFromGT(startPT.X,startPT.Y,frames,alldpoints,T);
@@ -235,7 +236,6 @@ if opt.startFromPir
         printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
         
         clear startPT
-    end
 end
 
     

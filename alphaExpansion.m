@@ -7,7 +7,7 @@ SNeighbors=Nhood.SNeighbors;
 
 %% some special cases...
 % do Olga's code if energy is submodular
-if ~dcOpt.exclusionFactor && ~dcOpt.pairwiseFactor
+if ~dcOpt.exclusionFactor && ~dcOpt.proxcostFactor
     [E, ~, ~, ~, olga_labeling]=doAlphaExpansion(Dcost, Scost, Lcost, TNeighbors);
     logm=double(olga_labeling);    Eogm=double(E);
     return;
