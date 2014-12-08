@@ -135,8 +135,8 @@ for r=setdiff(1:max(randruns),randruns)
 end
 
 % find out which random run was best
-RRm2d
-RRm3d
+RRm2d(12)
+RRm3d(12)
 RRens
 sum(RRens,2)
 [minv, bestr]=min(sum(RRens,2));
@@ -149,21 +149,10 @@ allens=RRens(bestr,:);
 stateInfo=RRstates(bestr).stateInfo;
 
 
-printMetrics(metrics2d);
-printMetrics(metrics3d);
+% printMetrics(metrics2d);
+% printMetrics(metrics3d);
 
+printFinalEvaluation(stateInfo,gtInfo,sceneInfo,opt);
 
-%%
-% clf
-% hold on
-% wx=-13000;
-% for w=1:wincnt
-%     plot(allwins(w,1):allwins(w,2),allstInfo(w).X,'.');
-%     line([allwins(w,1)-.5 allwins(w,1)-.5],[wx wx+10000])
-%     line([allwins(w,2)+.5 allwins(w,2)+.5],[wx wx+10000])
-%     line([allwins(w,1)-.5 allwins(w,2)+.5],[wx wx])
-%     line([allwins(w,1)-.5 allwins(w,2)+.5],[wx+10000 wx+10000])
-%     wx=wx+100;
-% end
 
 end

@@ -60,6 +60,8 @@ Download and install GCO 3.0 from http://vision.csd.uwo.ca/code/
 
 
 ### OpenGM2
+You can skip this step if you only want to run our simplified model from CVPR 2012. To that end, you can simply remove to energy weights: exclusionFactor=0 and proxcostFactor=0 in the opsions file.
+
 For inference with non-submodular energies, you will need to install the OpenGM2 framework.
 In particular, you should download and build the code with QPBO and/or TRW-S support.
 
