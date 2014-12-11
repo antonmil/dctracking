@@ -214,7 +214,7 @@ global startPT
 %% get splines from DP [Pirsiavash et al.]
 if opt.startFromPir     
         pOpt=getPirOptions;
-        [~, ~, ~, startPT]=runDP(scenario,pOpt,opt);
+        startPT=runDP(detections,pOpt,opt);
     
         if opt.track3d
             [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
@@ -232,7 +232,7 @@ if opt.startFromPir
         mhsp=getSplinesFromGT(startPT.X,startPT.Y,frames,alldpoints,T);
         mhs=[mhs mhsp];
         
-        fprintf('Pirsiavash Result: \n');
+        fprintf('Initial Result: \n');
         printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
         
         clear startPT

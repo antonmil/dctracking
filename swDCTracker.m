@@ -152,7 +152,7 @@ stateInfo=RRstates(bestr).stateInfo;
 % printMetrics(metrics2d);
 % printMetrics(metrics3d);
 
-printFinalEvaluation(stateInfo,gtInfo,sceneInfo,opt);
+printFinalEvaluation(stateInfo,gtInfo,sceneInfo,opti);
 
 
 end
