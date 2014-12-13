@@ -143,6 +143,9 @@ if ~isfield(sceneInfo,'targetAR')
 end
 if ~isfield(sceneInfo,'targetSize')
     sceneInfo.targetSize=mean([detections(:).wd]./2);
+    if opt.track3d
+        sceneInfo.targetSize=350; % 35 cm
+    end
 end
 
 T=size(detections,2);                   % length of sequence

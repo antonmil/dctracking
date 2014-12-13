@@ -43,11 +43,14 @@ In particular, you should download and build the code with QPBO and/or TRW-S sup
 Running
 =======
 
-Now all should be set to run the tracker.
-From Matlab, run
+Start Matlab and run
+
+	installDCTracker;
+	
+Now all should be set up. You can start the tracker with.
 
     [metrics2d, metrics3d, allen, stateInfo, sceneInfo] = ...
-		swDCTracker('scenes/scene3D.ini','config/default3dSimple.ini');
+		sceneInfo]=swDCTracker('scenes/TUD-Campus.ini','config/default2dSimple.ini');
     
 The output should be similar to the one in logs/log_scene3D.txt. Note that both discrete inference 
 and continuous minimization may lead to slightly different final results, depending on the current 
