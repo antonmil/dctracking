@@ -1,5 +1,5 @@
-function [metrics2d, metrics3d, allens, stateInfo]= ...
-    dcTracker(scen,options)
+function [metrics2d, metrics3d, allens, stateInfo, sceneInfo]= ...
+    dcTracker(scene,options)
     
 % Discrete-Continuous Optimization for Multi-Target Tracking
 % with exclusion modeling
@@ -35,7 +35,11 @@ function [metrics2d, metrics3d, allens, stateInfo]= ...
 %  
 %  
 % input:
-% scen - a numerical value representing a specific video sequence
+% scene - description of the present scene, either
+%               a numerical value representing a specific video sequence or
+%               a struct containing all info or
+%               a file name to the scene.ini
+% 
 % options - a struct with all necessary options and parameters
 %
 % output
@@ -44,6 +48,7 @@ function [metrics2d, metrics3d, allens, stateInfo]= ...
 % alles     - energy values
 % stateInfo - a struct with tracking results
 
+% global start time
 global dcStartTime
 dcStartTime=tic;
 
@@ -70,7 +75,7 @@ global mhs used labeling outlierLabel
 
 % what dataset/sequence?
 scenario=41;
-if nargin, scenario=scen; end
+if nargin, scenario=scene; end
 
 % fill options struct with default if not given as parameter
 % opt=getDCOptions;
@@ -98,7 +103,6 @@ end
 
 % fill scene info
 sceneInfo=getSceneInfo(scenario);
-
 
 % fill in empty output
 [metrics2d, metrics3d]=getMetricsForEmptySolution();
@@ -133,6 +137,16 @@ if opt.visOptim,  reopenFig('optimization'); end
 [detections, nPoints]=cutDetections(detections,nPoints,sceneInfo, opt);
 % detMatrices=getDetectionMatrices(detections);
 
+% additional scene Info from detections
+if ~isfield(sceneInfo,'targetAR')
+    sceneInfo.targetAR=mean([detections(:).wd]./[detections(:).ht]);
+end
+if ~isfield(sceneInfo,'targetSize')
+    sceneInfo.targetSize=mean([detections(:).wd]./2);
+    if opt.track3d
+        sceneInfo.targetSize=350; % 35 cm
+    end
+end
 
 T=size(detections,2);                   % length of sequence
 stateInfo.F=T; stateInfo.frameNums=sceneInfo.frameNums;
@@ -146,9 +160,10 @@ end
 opt=getAuxOpt(conffile,opt,sceneInfo,T);
 checkDCOptions(opt);    % Check options for correctness
 
-
-if isempty([detections(:).xi])
-    fprintf('no detections present\n');
+% degenerate case, sequence has less than 5 detection
+% return empty solution
+if numel([detections(:).xi])<5
+    fprintf('Too few detections present. Exit.\n');
     [metrics2d, metrics3d, m2i, m3i, addInfo2d, addInfo3d]=getMetricsForEmptySolution();
 %     stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
 %     stateInfo.X=[];stateInfo.Y=[];
@@ -200,9 +215,10 @@ end
 
 global startPT
 %% get splines from DP [Pirsiavash et al.]
-if opt.startFromPir
-    if exist(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario),'file')
-        load(sprintf('data/init/dptracking/startPT-pir-s%04d.mat',scenario));
+if opt.startFromPir     
+        pOpt=getPirOptions;
+        startPT=runDP(detections,pOpt,opt);
+    
         if opt.track3d
             [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
             startPT.Xgp=startPT.X;startPT.Ygp=startPT.Y;
@@ -211,19 +227,18 @@ if opt.startFromPir
                 startPT.Y=startPT.Y-startPT.H/2;
             end
         end
-        if isfield(startPT,'stateVec'), startPT=rmfield(startPT,'stateVec'); end
+
         if opt.track3d && opt.cutToTA,        startPT=cutStateToTrackingArea(startPT);    end
-        startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
+%         startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
                         
         
         mhsp=getSplinesFromGT(startPT.X,startPT.Y,frames,alldpoints,T);
         mhs=[mhs mhsp];
         
-        fprintf('Pirsiavash Result: \n');
+        fprintf('Initial Result: \n');
         printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
         
         clear startPT
-    end
 end
 
     
@@ -533,11 +548,11 @@ if ~isempty(lo),    newLabeling(lo)=outlierLabel; end
 
 
 %% final plot
-if usejava('desktop') && T<50
-    reopenFig('optimization');
-    prepFigure; drawPoints(alldpoints,newLabeling,outlierLabel,TNeighbors);
-    drawSplines(mhs(used),1:length(used),newLabeling,alldpoints,frames);
-end
+% if usejava('desktop') && T<50
+%     reopenFig('optimization');
+%     prepFigure; drawPoints(alldpoints,newLabeling,outlierLabel,TNeighbors);
+%     drawSplines(mhs(used),1:length(used),newLabeling,alldpoints,frames);
+% end
 
 %%
 stateInfo=getStateFromSplines(mhs(used), stateInfo);

@@ -1,4 +1,5 @@
-function [metrics2d, metrics3d, allens, stateInfo]=swDCTracker(scen,optfile,swfile)
+function [metrics2d, metrics3d, allens, stateInfo, sceneInfo] =...
+    swDCTracker(scen,optfile,swfile)
 % do temporal sliding window optimization, Sec. 5.5 PAMI
 
 % scen=71;
@@ -17,7 +18,6 @@ if exist(swfile,'file')
     windowSize=swparams(1);minWindowSize=swparams(2);overlapSize=swparams(3);
 end
 
-allstInfo=[];
 addPaths;
 
 
@@ -29,11 +29,12 @@ randruns=opti.randrun
 RRm2d=[];RRm3d=[];RRens=[];RRstates=[];
 % do several randruns if necessary
 for r=randruns
+  allstInfo=[];
   opti=readDCOptions(optfile);
   opti.randrun=r;
   
   
-  sceneInfo=getSceneInfo(scenario);
+  sceneInfo=getSceneInfo(scenario,opti);
   allframeNums=sceneInfo.frameNums;
   F=length(allframeNums);
   fromframe=1; toframe=windowSize;
@@ -110,6 +111,13 @@ for r=randruns
 
   opt.frames=1:length(stateInfo.frameNums);
   [metrics2d, metrics3d]=printFinalEvaluation(stateInfo, gtInfo, sceneInfo, stInfo.opt);
+  sceneInfo=getSceneInfo(scenario);
+  if sceneInfo.gtAvailable
+    if size(gtInfo.X,2)==0
+        metrics2d(:)=0;
+        metrics3d(:)=0;
+    end
+  end
 
   allallens
   allens=mean(allallens);
@@ -121,7 +129,16 @@ for r=randruns
   RRstates(r).stateInfo=stateInfo;
 end  % for randrun
 
+% fill randruns that were not run with Inf
+for r=setdiff(1:max(randruns),randruns)
+    RRens(r,:)=Inf;
+end
+
 % find out which random run was best
+RRm2d(12)
+RRm3d(12)
+RRens
+sum(RRens,2)
 [minv, bestr]=min(sum(RRens,2));
 fprintf('Best Run: %d, energy: %f\n',bestr,minv);
 
@@ -132,18 +149,10 @@ allens=RRens(bestr,:);
 stateInfo=RRstates(bestr).stateInfo;
 
 
+% printMetrics(metrics2d);
+% printMetrics(metrics3d);
 
-%%
-% clf
-% hold on
-% wx=-13000;
-% for w=1:wincnt
-%     plot(allwins(w,1):allwins(w,2),allstInfo(w).X,'.');
-%     line([allwins(w,1)-.5 allwins(w,1)-.5],[wx wx+10000])
-%     line([allwins(w,2)+.5 allwins(w,2)+.5],[wx wx+10000])
-%     line([allwins(w,1)-.5 allwins(w,2)+.5],[wx wx])
-%     line([allwins(w,1)-.5 allwins(w,2)+.5],[wx+10000 wx+10000])
-%     wx=wx+100;
-% end
+printFinalEvaluation(stateInfo,gtInfo,sceneInfo,opti);
+
 
 end

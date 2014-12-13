@@ -4,6 +4,7 @@ function trainModel(jobname,jobid,maxexper)
 addpath(genpath('../motutils/'));
 format compact
 
+[~,hname]=system('hostname')
 settingsDir=strsplit(jobname,'-');
 runname=char(settingsDir{1})
 learniter=char(settingsDir{2})
@@ -20,7 +21,7 @@ resdir=sprintf('results/%s',settingsDir);
 if ~exist(resdir,'dir'), mkdir(resdir); end
 resdir
 
-
+trainStartTime=tic;
 resultsfile=sprintf('%s/res_%03d.mat',resdir,jobid);
 
 % if computed alread, just load it
@@ -126,6 +127,23 @@ else
 
   end
 
+  % KITTI
+
+%    if ~isempty(intersect(scenario,[500:899, 1500:1899]))
+    if isfield(opt,'KITTI')
+      a=infos(allscen);
+      kittiDir=sprintf('%s-%d',settingsDir,jobid)
+      metricsKITTI=evalKITTI(a,kittiDir,opt.KITTI);
+      metricsKITTI(1:12)=100*metricsKITTI(1:12); % percentages
+      KITTIToMineMapping=[6 7 9 19 10 11 12 14 15 16 17 1 2 3]
+      myMets=metricsKITTI(KITTIToMineMapping);
+      myMets(4:11)=round(myMets(4:11)); % rounding, carefull, also GT,MT, etc...
+    
+      for scenario=allscen
+  	mets2d(scenario,:)=myMets;
+      end
+      
+    end  
 
     
   save(resultsfile,'opt','mets2d','mets3d','ens','infos','allscen');
@@ -139,6 +157,9 @@ else
     end
   end
 end
+
+printMessage(1,'Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
+    toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
 
 % evaluate what we have so far
 bestexper=combineResultsRemote(settingsDir);

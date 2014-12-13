@@ -7,7 +7,7 @@ SNeighbors=Nhood.SNeighbors;
 
 %% some special cases...
 % do Olga's code if energy is submodular
-if ~dcOpt.exclusionFactor && ~dcOpt.pairwiseFactor
+if ~dcOpt.exclusionFactor && ~dcOpt.proxcostFactor
     [E, ~, ~, ~, olga_labeling]=doAlphaExpansion(Dcost, Scost, Lcost, TNeighbors);
     logm=double(olga_labeling);    Eogm=double(E);
     return;
@@ -18,6 +18,13 @@ if dcOpt.unaryFactor && ~dcOpt.pairwiseFactor && ~dcOpt.exclusionFactor && ~sum(
     [m, mm]=min(Dcost);
     logm=mm;
     Eogm=sum(m);
+    return;
+end
+
+% if we have only one (outlier) label
+if size(Dcost,1)<2
+    logm=labeling;
+    Eogm=length(labeling)*dcOpt.outlierCost;
     return;
 end
 
@@ -259,7 +266,8 @@ while ~converged && alphaExpIt<maxIt
             Dpwi=[]; % indicater whether equal or different
             UnAux=zeros(size(DcostAlphaAux));
             
-            if exist(['constructPairwise.' mexext],'file')
+%             if exist(['constructPairwise.' mexext],'file')
+            if dcOpt.mex
                 if dcOpt.pairwiseFactor
                     TNeighborsAux=full(pTN+pTN');
                     [UnAux2, Dpwa, Dpwb, Dpwi2]= ...
@@ -318,8 +326,8 @@ while ~converged && alphaExpIt<maxIt
             Expw=[];
             Expwi=[]; % indicater whether equal or different
             UnAuxE=zeros(size(DcostAlphaAux));
-            if exist(['constructPairwise.' mexext],'file')
-                
+%             if exist(['constructPairwise.' mexext],'file')
+            if dcOpt.mex
                 
                 % EXCLUSIONS FAST
                 if dcOpt.exclusionFactor && expLab~=nLabels

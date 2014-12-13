@@ -4,7 +4,8 @@ function Dmat = getUnarySpline(nLabels,nPoints,mh,allpoints,opt)
 
 
 % global opt
-    
+dphi=opt.outlierCost;
+
 if isempty(mh)
     Dmat = dphi * ones(nLabels,nPoints);
     return
@@ -73,7 +74,6 @@ for l=1:nLabels-1
 end
 
 uF=opt.unaryFactor;
-dphi=opt.outlierCost;
 
 Dmat=uF*Dmat;
 

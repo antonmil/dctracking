@@ -17,8 +17,8 @@ q=2;
 speedThreshold = sceneInfo.targetSize;
 tauThreshold = sceneInfo.targetSize/2;
 
-maxtries=1e3;
-maxtries2=1e3;
+maxtries=min(ndp,1e3);
+maxtries2=min(ndp,1e3);
 generated=0;
 trygen2=0;
 while generated<n && trygen2<maxtries2

@@ -7,7 +7,8 @@ global opt
 if opt.visOptim
     prepFigure; drawPoints(alldpoints,labeling,outlierLabel,TNeighbors);
     drawSplines(mhs,used,labeling,alldpoints,frames)
+    drawnow
 end
 
-drawnow
+
 end
