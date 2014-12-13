@@ -52,7 +52,7 @@ Now all should be set up. You can start the tracker with.
     [metrics2d, metrics3d, allen, stateInfo, sceneInfo] = ...
 		sceneInfo]=swDCTracker('scenes/TUD-Campus.ini','config/default2dSimple.ini');
     
-The output should be similar to the one in logs/log_scene3D.txt. Note that both discrete inference 
+The output should be similar to the one in logs/log_tud-campus.txt. Note that both discrete inference 
 and continuous minimization may lead to slightly different final results, depending on the current 
 software environment and hardware architecture.
     
