@@ -46,7 +46,7 @@ end
 %%%%%%%%%%%%%%%
 try
     fprintf('Installing GCO...');
-    if ~exist('external/GCO/matlab','dir')
+    if ~exist(['external/GCO/matlab/bin/gco_matlab.',mexext],'file')
         cd external
         mkdir('GCO')
         cd GCO
