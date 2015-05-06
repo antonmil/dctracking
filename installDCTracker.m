@@ -72,7 +72,7 @@ end
 % This one is optional
 try
     fprintf('Installing Lightspeed...');
-    if ~exist('external/lightspeed','dir')
+    if ~exist('./external/lightspeed','dir')
         cd external
         mkdir('lightspeed')
         cd lightspeed
