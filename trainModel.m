@@ -166,12 +166,22 @@ printMessage(1,'Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
     toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
 
 % evaluate what we have so far
-bestexper=combineResultsRemote(settingsDir);
+[bestexper,bestmota]=combineResultsRemote(settingsDir);
 
 querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
 [rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running
 
 fprintf('%d other jobs still running\n',rjobs);
+
+% save to bis allres file
+if rjobs==0
+    try
+        fid=fopen('alltraining.txt','a');
+        fprintf(fid,'%s\t%s\t%.1f (%d)\n',datestr(now),settingsDir,bestmota,bestexper);
+        fclose(fid);
+    catch
+    end
+end
 
 % if last one, resubmit
 if bestexper==1

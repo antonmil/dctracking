@@ -1,4 +1,4 @@
-function mr=combineResultsRemote(jobname,maxexper)
+function [mr,mm]=combineResultsRemote(jobname,maxexper)
 
 if nargin<2
 	maxexper=20;
