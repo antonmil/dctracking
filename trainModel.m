@@ -67,7 +67,11 @@ else
 	  for k=1:length(keys)
 	      key=char(keys{k});
 	      %params = setfield(params,key,ini.GetValues(sec,key));
-	      params = [params ini.GetValues(sec,key)];
+          val=ini.GetValues(sec,key);
+          
+          % e-notation is read in as a string
+          if ischar(val), val=str2double(val); end
+	      params = [params val];
 	  end
 
 	  rnmeans = params; % mean values are the starting point

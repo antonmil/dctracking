@@ -21,7 +21,7 @@ end
 resdone=find(resdone);
 ndone=numel(resdone);
 
-allmota=-50*ones(1,maxexper);
+allmota=30*ones(1,maxexper);
 allmota(resdone)=allmets(resdone,12);
 
 %% determine par a,b,...i
@@ -36,15 +36,15 @@ switch (par)
     case 'a'
         pname='outlier';
     case 'b'
-        pname='labelcost';
+        pname='parsimony';
     case 'c'
         pname='unary';
     case 'd'
         pname='persistence';
     case 'e'
-        pname='ang. vel.';
+        pname='ang. velocity';
     case 'f'
-        pname='lin. vel.';
+        pname='lin. velocity';
     case 'g'
         pname='prox. cost';
     case 'h'
@@ -70,15 +70,15 @@ switch (par)
     case 'a'
         pname='outlier';
     case 'b'
-        pname='labelcost';
+        pname='parsimony';
     case 'c'
         pname='unary';
     case 'd'
         pname='persistence';
     case 'e'
-        pname='ang. vel.';
+        pname='ang. velocity';
     case 'f'
-        pname='lin. vel.';
+        pname='lin. velocity';
     case 'g'
         pname='prox. cost';
     case 'h'
@@ -112,11 +112,11 @@ elseif ndim==2
     pname1='?';
     switch (par(1))
         case 'a', pname1='outlier';
-        case 'b', pname1='labelcost';
+        case 'b', pname1='parsimony';
         case 'c', pname1='unary';
         case 'd', pname1='persistence';
-        case 'e', pname1='ang. vel.';
-        case 'f', pname1='lin. vel.';
+        case 'e', pname1='ang. velocity';
+        case 'f', pname1='lin. velocity';
         case 'g', pname1='prox. cost';
         case 'h', pname1='exclusion';
         case 'i', pname1='pairwise';
@@ -124,11 +124,11 @@ elseif ndim==2
     pname2='?';
     switch (par(2))
         case 'a', pname2='outlier';
-        case 'b', pname2='labelcost';
+        case 'b', pname2='parsimony';
         case 'c', pname2='unary';
         case 'd', pname2='persistence';
-        case 'e', pname2='ang. vel.';
-        case 'f', pname2='lin. vel.';
+        case 'e', pname2='ang. velocity';
+        case 'f', pname2='lin. velocity';
         case 'g', pname2='prox. cost';
         case 'h', pname2='exclusion';
         case 'i', pname2='pairwise';
