@@ -8,7 +8,7 @@ elif [[ $# -eq 1 ]]; then
 else
         echo "Illegal number of parameters"
 fi
-jobid=${jobline:0:5}
+jobid=${jobline:0:6}
 node=${jobline:113:11}
 echo $node
 vim scp://$node//var/spool/torque/spool/$jobid-$1.moby.cs.adelaide.edu.au.OU 

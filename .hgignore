@@ -9,4 +9,5 @@ tmp/*
 logs/*
 config/11*
 config/12*
+config/05*
 results/*
