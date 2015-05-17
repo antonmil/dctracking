@@ -166,7 +166,8 @@ printMessage(1,'Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
     toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
 
 % evaluate what we have so far
-[bestexper,bestmota]=combineResultsRemote(settingsDir);
+%  [bestexper,bestmota]=combineResultsRemote(settingsDir);
+[bestexper,bestmota]=combineResultsBenchmark(settingsDir,jobid,maxexper);
 
 querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
 [rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running
