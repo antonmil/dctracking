@@ -18,7 +18,8 @@ distBhatt=Inf*ones(N);
 
 lw=3;
 supptimelength=5;
-simmatfile=sprintf('tmp/linked/simMat-clnr%03d-s%d.mat',clusternr,scenario);
+simmatfile=sprintf('tmp/linked/simMat-%s-s%d.mat',setting,scenario);
+% simmatfile=sprintf('tmp/linked/simMat-clnr%03d-s%d.mat',clusternr,scenario);
 
 
 if 1 && exist(simmatfile,'file')
@@ -71,21 +72,22 @@ fprintf('\n');
 %%
 fname=sprintf('tmp/allimages-s%d.mat',scenario);
 
-if ~exist(fname,'file')
+if 1 || ~exist(fname,'file')
 allimages=zeros(sceneInfo.imgHeight,sceneInfo.imgWidth,3,length(sceneInfo.frameNums),'uint8');
 for t=1:length(sceneInfo.frameNums)
     if ~mod(t,10), fprintf('.'); end
     allimages(:,:,:,t)=imread([sceneInfo.imgFolder sprintf(sceneInfo.imgFileFormat,sceneInfo.frameNums(t))]);
 end
-save(fname,'allimages')
+% save(fname,'allimages')
 fprintf('\n');
 end
-evstr='size(allimages,4)==F';
-if ~exist('allimages','var')
-    load(fname);
-elseif ~eval(evstr)
-    load(fname);   
-end
+
+% evstr='size(allimages,4)==F';
+% if ~exist('allimages','var')
+%     load(fname);
+% elseif ~eval(evstr)
+%     load(fname);   
+% end
 
 %%
 % pause

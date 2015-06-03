@@ -1,4 +1,7 @@
 %% sav
+% settingsDir='0530Pab-1';
+% confdir=['config/',settingsDir];
+% resdir=['results/',settingsDir];
 
 %%
 inifile=fullfile(confdir,'default.ini');
@@ -29,7 +32,7 @@ numdir='/home/amilan/research/papers/ongoing/anton-pami/code/paramAnal/';
 s1=strfind(setting,'P');s2=strfind(setting,'-');
 par=setting(s1+1:s2-1);
 motafile=fullfile(numdir,[par '.txt']);
-dlmwrite(motafile,allmota);
+% dlmwrite(motafile,allmota);
 
 pname='?';
 switch (par)
