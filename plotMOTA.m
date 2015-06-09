@@ -3,6 +3,8 @@
 % confdir=['config/',settingsDir];
 % resdir=['results/',settingsDir];
 
+
+
 %%
 inifile=fullfile(confdir,'default.ini');
 ini=IniConfig();
@@ -13,6 +15,8 @@ keys = ini.GetKeys(sec);
 
 % param search dimension
 ndim=length(keys);
+ndim=2; %%% be careful!!!
+
 lval=0; uval=2;
 
 resdone=false(1,maxexper);
@@ -23,9 +27,11 @@ for r=1:maxexper
 end
 resdone=find(resdone);
 ndone=numel(resdone);
-
+resdone=1:maxexper;
 allmota=30*ones(1,maxexper);
 allmota(resdone)=allmets(resdone,12);
+truncmota=45;
+allmota(allmota<truncmota)=truncmota;
 
 %% determine par a,b,...i
 numdir='/home/amilan/research/papers/ongoing/anton-pami/code/paramAnal/';
@@ -107,9 +113,12 @@ elseif ndim==2
     Z=reshape(allmota,gridX,gridY)';
     surfc(X,Y,Z)
     zlim([-100 100]);
+%     zlim([40 55]);
+%     allmota(round(length(allmota)/2))
     
     view(2);
     colorbar
+    caxis([50 55]);
     title('MOTA [%]')
     
     pname1='?';

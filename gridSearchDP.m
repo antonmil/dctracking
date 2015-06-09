@@ -11,11 +11,11 @@ allscen=2100+[23,25,27,71,72,42];
 expcnt=0;
 allexp=[];
 
-pp1=linspace(50,150,5);
-pp2=linspace(50,150,5);
-pp3=linspace(0.05,0.5,3);
+pp1=linspace(60,100,3);
+pp2=linspace(60,100,3);
+pp3=linspace(0.05,0.3,3);
 pp4=linspace(0.05,0.5,3);
-pp5=linspace(5,25,3);
+pp5=linspace(15,25,3);
 for scenario=allscen
     sceneInfo=getSceneInfo(scenario);
     detections=parseDetections(sceneInfo);
@@ -42,7 +42,7 @@ for scenario=allscen
                         pirOpt.c_ex      = p2;     %% death cost
                         pirOpt.c_ij      = p3;      %% transition cost
                         pirOpt.betta     = p4;    %% betta
-                        pirOpt.max_it    = Inf;    %% max number of iterations (max number of tracks)
+                        pirOpt.max_it    = 100;    %% max number of iterations (max number of tracks)
                         pirOpt.thr_cost  = p5;     %% max acceptable cost for a track (increase it to have more tracks.)
                         
                         pirOpt
@@ -63,11 +63,13 @@ for scenario=allscen
                         
                         save(resfile,'stateInfo','metrics*','pirOpt');
                         
+                        
+                        
                     end
                 end
             end
         end
     end
-    
+    save('allexp-0608.mat','allexp');
     
 end
