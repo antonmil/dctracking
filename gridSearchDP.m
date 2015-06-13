@@ -11,8 +11,8 @@ allscen=2100+[23,25,27,71,72,42];
 expcnt=0;
 allexp=[];
 
-pp1=linspace(60,100,3);
-pp2=linspace(60,100,3);
+pp1=linspace(1,10,3);
+pp2=linspace(1,10,3);
 pp3=linspace(0.05,0.3,3);
 pp4=linspace(0.05,0.5,3);
 pp5=linspace(15,25,3);
@@ -70,6 +70,6 @@ for scenario=allscen
             end
         end
     end
-    save('allexp-0608.mat','allexp');
+    save('allexp-0612.mat','allexp');
     
 end
