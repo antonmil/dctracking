@@ -3,7 +3,7 @@ data/init/*
 data/cvpr*
 data/det*
 data/gt*
-external/*
+
 out/*
 tmp/*
 logs/*
