@@ -122,7 +122,7 @@ legend('Training Set','Test Set');
 % saveas(gcf,'det-dollar.pdf');
 % saveas(gcf,'det-dollar.png');
 % export_fig 'det-dollar.pdf' -transparent;
-export_fig '../../../../../../papers/2015/arxiv-benchmark/figures/det-dollar.pdf' -transparent;
+% export_fig '../../../../../../papers/2015/arxiv-benchmark/figures/det-dollar.pdf' -transparent;
 
 
 
