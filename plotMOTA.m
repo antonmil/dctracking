@@ -15,7 +15,7 @@ keys = ini.GetKeys(sec);
 
 % param search dimension
 ndim=length(keys);
-ndim=2; %%% be careful!!!
+% ndim=2; %%% be careful!!!
 
 lval=0; uval=2;
 

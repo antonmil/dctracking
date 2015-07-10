@@ -48,6 +48,28 @@ for scenario=allscen
         end
     end
 end
+
+for scenario=allscen
+    sceneInfo=getSceneInfo(scenario);
+    od1='tmp/visparsimony/nopar';
+    od2='tmp/visparsimony/par';
+    od='tmp/visparsimony';
+    for t=sceneInfo.frameNums
+        try
+            im1f=sprintf('%s/s%d-f%04d.jpg',od1,scenario,t);
+            im1=imread(im1f);
+            impad=zeros(size(im1,1),10,3);
+            im2f=sprintf('%s/s%d-f%04d.jpg',od2,scenario,t);
+            im2=imread(im2f);
+            imcat = cat(2,im1,impad,im2);
+            imwrite(imcat,sprintf('%s/s%d-f%04d.jpg',od,scenario,t));
+        catch err
+            fprintf('frame %d skipped: %s\n',t,err.message)
+        end
+    end
+end
+
+
 end
 
 %% crop out interesting examples

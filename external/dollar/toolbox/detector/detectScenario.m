@@ -1,6 +1,6 @@
 %% 
 addpath(genpath('../../../../../motutils'));
-% scenario=27;
+scenario=25;
 sceneInfo=getSceneInfo(scenario);
 
 load('models/AcfInriaDetector.mat')
@@ -14,6 +14,7 @@ detector = acfModify(detector,'rescale',detScale);
 
 
 F=length(sceneInfo.frameNums);
+F=10;
 filecells=cell(1,F);
 for t=1:F
     filecells{t} = getFrameFile(sceneInfo,t);
@@ -25,9 +26,9 @@ bbx = acfDetect(filecells,detector);
 %%
 % write out
 detFile=sprintf('data/acf-s%04d.txt',scenario);
-writeDets(bbx,detFile);
+% writeDets(bbx,detFile);
 detFile=[sceneInfo.detfile,'-acf.txt'];
-writeDets(bbx,detFile);
+% writeDets(bbx,detFile);
 
 
 % raw detector
@@ -36,7 +37,7 @@ detector.opts.pNms.type='none';
 bbx = acfDetect(filecells,detector);
 
 % write out
-detFile=sprintf('data/acf-raw-s%04d.txt',scenario);
-writeDets(bbx,detFile);
-detFile=[sceneInfo.detfile,'-acf-raw.txt'];
-writeDets(bbx,detFile);
+% detFile=sprintf('data/acf-raw-s%04d.txt',scenario);
+% writeDets(bbx,detFile);
+% detFile=[sceneInfo.detfile,'-acf-raw.txt'];
+% writeDets(bbx,detFile);
