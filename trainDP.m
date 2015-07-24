@@ -2,6 +2,7 @@ function trainDP(jobname,jobid,maxexper)
 
 %% determine paths for config, logs, etc...
 addpath(genpath('../motutils/'));
+addpath(genpath('external/dptracking'))
 format compact
 
 [~,hname]=system('hostname')
@@ -38,7 +39,7 @@ else
 	  error('You must provide initial options file 0001.ini');
   end
 
-  opt=readDCOptions(inifile);
+  opt=parseDPOptions(inifile);
 
   %% zip up logs (previous)
   if jobid==1
@@ -110,7 +111,7 @@ else
 
   mets2d=zeros(max(allscen),14);
   mets3d=zeros(max(allscen),14);  
-  ens=zeros(max(allscen),5);
+  % ens=zeros(max(allscen),5);
 
   for scenario=allscen
 	  fprintf('jobid: %d,   learn iteration %d\n',jobid,learniter);
@@ -120,13 +121,13 @@ else
 	    load(scensolfile);
 	  catch err
 	    fprintf('Could not load result: %s\n',err.message);
-	    [metrics2d, metrics3d, energies, stateInfo]=swDCTracker(scenario,conffile);
-	    save(scensolfile,'stateInfo','metrics2d','metrics3d','energies');
+	    [metrics2d, metrics3d, stateInfo]=runDPonScen(scenario,conffile);
+	    save(scensolfile,'stateInfo','metrics2d','metrics3d');
 	  end	  
 
 	  mets2d(scenario,:)=metrics2d;
 	  mets3d(scenario,:)=metrics3d;
-	  ens(scenario,:)=double(energies);
+	  % ens(scenario,:)=double(energies);
 	  infos(scenario).stateInfo=stateInfo;
 
   end
@@ -150,7 +151,7 @@ else
     end  
 
     
-  save(resultsfile,'opt','mets2d','mets3d','ens','infos','allscen');
+  save(resultsfile,'opt','mets2d','mets3d','infos','allscen');
   
   
   % remove temp scene files
@@ -206,7 +207,7 @@ else
 	eval(cpstr);
 	
 	% 
-	submitstr=sprintf('!ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no moby  \"cd research/projects/dctracking; sh submitTrain.sh %s\"',newSetting)
+	submitstr=sprintf('!ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no moby  \"cd research/projects/dctracking; sh submitDPTrain.sh %s\"',newSetting)
 	fprintf('submit: %s\n',newSetting)
   	eval(submitstr);	
   else
