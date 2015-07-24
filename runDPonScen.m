@@ -6,6 +6,7 @@ global opt sceneInfo detections gtInfo
 % prepare sequence
 opt=readDCOptions('config/default2d.ini');
 
+opt.track3d=howToTrack(scenario); opt.cutToTA=0;
 sceneInfo=getSceneInfo(scenario,opt);
 [detections, nPoints]=parseDetections(sceneInfo);
 [detections, nPoints]=cutDetections(detections,nPoints,sceneInfo, opt);
@@ -66,6 +67,7 @@ stateInfo=boxesToStateInfo(bboxes_tracked,sceneInfo);
 stateInfo=postProcessState(stateInfo);
 stateInfo.sceneInfo=sceneInfo;
 stateInfo.opt = opt;
+stateInfo.bboxes_tracked = bboxes_tracked;
 % myopt.conOpt
 
 opt=getAuxOpt('aa',opt,sceneInfo,stateInfo.F);
