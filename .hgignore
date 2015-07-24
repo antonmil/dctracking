@@ -10,5 +10,10 @@ logs/*
 config/11*
 config/12*
 config/05*
+config/*
+external/lightspeed/*
+external/dollar/*
+external/opengm/*
+external/GCO/*
 results/*
 *.mexa64

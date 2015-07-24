@@ -11,7 +11,9 @@ end
 
 nf=1; if opt.track3d, nf=1000; end	% normalization factor, mm for 3d tracking
 
-if sceneInfo.scenario == 51 || sceneInfo.scenario == 53, auxOpt(7)=.1; auxOpt(8)=250; end
+if sceneInfo.scenario == 51 || sceneInfo.scenario == 53 || (sceneInfo.scenario>=1000 && sceneInfo.scenario<=1099)
+	auxOpt(7)=.1; auxOpt(8)=250; 
+end
 
 opt.conOpt.enParEdat=[opt.dataFunction, nf, auxOpt(1)]; % Edat par
 opt.conOpt.enParElin=[nf, auxOpt(2), sceneInfo.frameRate, auxOpt(7), auxOpt(8)]; % Elin par: normfac, m/s, fR, epsilon, ypos of horizon
