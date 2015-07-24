@@ -92,7 +92,7 @@ else
 	  end
 
 	  % write out new opt file
-	  status = writeDCOptions(opt,conffile);
+	  status = writeDPOptions(opt,conffile);
 	  
 
 	  
@@ -173,9 +173,23 @@ else
 	[bestexper,bestmota]=combineResultsBenchmark(settingsDir,jobid,maxexper);
 end
 
-querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
-[rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running
+% quick hack to randomize finishing a bit
+pause(randi(20,1,1));
 
+%querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
+%[rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running
+
+%fprintf('%d other jobs still running\n',rjobs);
+
+resfiles=dir(sprintf('%s/res_*.mat',resdir))
+fprintf('done %d experiments\n',length(resfiles));
+
+querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir)
+[rs,rjobs] = system(querystring)
+rjobs=str2double(rjobs)-1; % subtract currently running
+fprintf('%d other jobs still running\n',rjobs);
+
+rjobs = maxexper-length(resfiles);
 fprintf('%d other jobs still running\n',rjobs);
 
 % save to bis allres file
