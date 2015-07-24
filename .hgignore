@@ -15,5 +15,6 @@ external/lightspeed/*
 external/dollar/*
 external/opengm/*
 external/GCO/*
+external/dptracking/bayes*
 results/*
 *.mexa64
