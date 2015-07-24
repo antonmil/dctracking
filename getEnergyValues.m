@@ -21,6 +21,5 @@ assert(abs(totEn - (D+S+E+P+L)) < enTol, 'energy value is wrong');
 % energy
 % energy.labelCost
 % (hreg+hlin+hang+hper+hocc)
-assert(abs(L-(hreg+hlin+hang+hper+hocc+hseg)) < enTol,'label cost value is wrong');
-
+assert(abs(L-(hreg+hlin+hang+hper+hocc+hseg)) < enTol,'label cost value is wrong. %f != %f = %f + %f + %f + %f + %f + %f', L, (hreg+hlin+hang+hper+hocc+hseg),hreg,hlin,hang,hper,hocc,hseg);
 end

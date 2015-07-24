@@ -286,7 +286,7 @@ for m=used
                 ypos=ppval(spl,linspace(tt(1),tt(end),length(tt)));
                 ypos=ypos(2,:);
                 scf=1;
-                if sceneInfo.scenario==51 || sceneInfo.scenario==53
+                if sceneInfo.scenario==51 || sceneInfo.scenario==53 || (sceneInfo.scenario>=1000 && sceneInfo.scenario<=1099)
                     scf=min(1e5, 1./abs(ypos-200));
                 end
 
@@ -317,7 +317,7 @@ for m=used
 %         sl .* ( 1./(ypos-200))
 
         scf=1;
-        if sceneInfo.scenario==51 || sceneInfo.scenario==53
+        if sceneInfo.scenario==51 || sceneInfo.scenario==53  || (sceneInfo.scenario>=1000 && sceneInfo.scenario<=1099)
             scf=min(1e5, 1./abs(ypos-200));% hack to scale dynamics in 2D (ETH)         
         end
 
