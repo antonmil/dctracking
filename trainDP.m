@@ -190,8 +190,8 @@ querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir)
 rjobs=str2double(rjobs)-1; % subtract currently running
 fprintf('%d other jobs still running\n',rjobs);
 
-rjobs = maxexper-length(resfiles);
-fprintf('%d other jobs still running\n',rjobs);
+%rjobs = maxexper-length(resfiles);
+%fprintf('%d other jobs still running\n',rjobs);
 
 % save to bis allres file
 if rjobs==0

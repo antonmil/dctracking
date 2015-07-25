@@ -1,5 +1,5 @@
-% function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
-%     runDPonScen(scenario, conffile)
+function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
+    runDPonScen(scenario, conffile)
 
 addPaths;
 
@@ -64,4 +64,4 @@ gtInfo=cropFramesFromGT(sceneInfo,gtInfo,frames(2:end),opt);
 delete(detfile)
 
 %         resultToXY;
-% end
+end
