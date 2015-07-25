@@ -17,6 +17,8 @@ external/opengm/*
 external/GCO/*
 external/dptracking/bayes*
 external/dptracking/grid*
+external/ksptracking/input/*
+external/ksptracking/output/*
 results/*
 *.mexa64
 *.mexw64*
