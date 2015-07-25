@@ -81,7 +81,7 @@ else
 	  if jobid <= maxexper/2
 		  params = 2*rand(1,length(params)) .* rnmeans; % uniform [0, 2*max]
 	  else
-		  params = abs(rnmeans + rmvars .* randn(1,length(rnmeans))); % normal sampling
+		  params = (rnmeans + rmvars .* randn(1,length(rnmeans))); % normal sampling
 	  end
 
 
@@ -92,7 +92,7 @@ else
 	  end
 
 	  % write out new opt file
-	  status = writeDCOptions(opt,conffile);
+	  status = writeKSPOptions(opt,conffile);
 	  
 
 	  
@@ -121,7 +121,7 @@ else
 	    load(scensolfile);
 	  catch err
 	    fprintf('Could not load result: %s\n',err.message);
-	    [metrics2d, metrics3d, stateInfo]=runDPonScen(scenario,conffile);
+	    [metrics2d, metrics3d, stateInfo]=runKSPonScen(scenario,conffile);
 	    save(scensolfile,'stateInfo','metrics2d','metrics3d');
 	  end	  
 

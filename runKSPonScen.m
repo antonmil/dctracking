@@ -1,5 +1,5 @@
-% function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
-%     runKSPonScen(scenario, conffile)
+function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
+    runKSPonScen(scenario, conffile)
 
 addPaths;
 global opt sceneInfo detections gtInfo
@@ -19,9 +19,9 @@ options = parseKSPOptions(conffile);
 detections=parseDetections(sceneInfo); 
 
 % sigmoidify
-for t=1:F
-    detections(t).sc = 1./ (1 + exp(-options.sigB * detections(t).sc + options.sigA*options.sigB));
-end
+% for t=1:F
+    % detections(t).sc = 1./ (1 + exp(-options.sigB * detections(t).sc + options.sigA*options.sigB));
+% end
 
 % unique folder (date-host) for parallel cluster jobs
 [~,hname]=system('hostname'); hname=hname(1:end-1);
@@ -52,7 +52,16 @@ ImagePositionsOnGrid=generateImagePositionsOnGrid(WorldPositionsOnGrid,sceneInfo
 gridX=size(WorldPositionsOnGrid,1); gridY=size(WorldPositionsOnGrid,2);
 numcells=gridX*gridY;
 
-Detmaps=generateDetmaps(WorldPositionsOnGrid,detections,sceneInfo,options.SIG);
+% if forced to recomputde
+if isfield(options,'forceDM')
+	Detmaps=generateDetmaps(WorldPositionsOnGrid,detections,sceneInfo,options.SIG);
+else
+	detmapfile=sprintf('external/ksptracking/detmaps/Detmap-s%04d',scenario);
+	load(detmapfile);
+	Detmaps = DetMap;
+end
+	
+Detmaps = 1./ (1 + exp(-options.sigB * Detmaps + options.sigA*options.sigB));
 Detmaps(isnan(Detmaps))=0;
 
 fprintf('Parameters\n');
@@ -62,7 +71,7 @@ for t=0:F-1
     if ~mod(t,10), fprintf('.'); end
     fname=fullfile(detdir,sprintf('frame-%04d.dat',t));
     dets=Detmaps(:,:,t+1);
-    detim=imresize(dets,10,'nearest'); detim=imrotate(detim,90);
+    % detim=imresize(dets,10,'nearest'); detim=imrotate(detim,90);
 %         clf;  imshow(detim); pause(0.01);
     A=[(1:numcells)' reshape(dets,numcells,1)];
     dlmwrite(fname,A,' ');
@@ -95,11 +104,11 @@ fprintf(fidout,'DEPTH 1\n');
 fprintf(fidout,'MAX_TRAJ 255\n');
 informat=fullfile(indir,'detmaps','frame-%04d.dat');
 fprintf(fidout,'INPUT_FORMAT %s\n',informat);
-
+fclose(fidout)
 
 %% tracking
 outfile=fullfile(outdir,sprintf('s%04d.dat',scenario));
-comnd=sprintf('./ksp -o %s %s',outfile,kspfile);
+comnd=sprintf('./external/ksptracking/ksp -o %s %s',outfile,kspfile);
 eval(sprintf('!%s',comnd))
 
 %%
@@ -135,7 +144,7 @@ for t=1:F
 end
 stateInfo.X=X; stateInfo.Y=Y;
 [stateInfo.F, stateInfo.N]=size(X);
-stateInfo.frameNums=frameNums;
+stateInfo.frameNums=sceneInfo.frameNums;
 stateInfo.targetsExist=getTracksLifeSpans(X);
 stateInfo=matricesToVector(X,Y,stateInfo);
 
@@ -153,6 +162,13 @@ stateInfo=postProcessState(stateInfo);
 %%
 metfile=sprintf('%s/metrics.txt',outdir);
 [metrics2d, metrics3d]=printFinalEvaluation(stateInfo, gtInfo, sceneInfo, opt);
-infos(scenario).stateInfo=stateInfo;
-mets3d(scenario,:)=metrics3d;
+% infos(scenario).stateInfo=stateInfo;
+% mets3d(scenario,:)=metrics3d;
 
+% clearn up (remove temp files)
+scendir=sprintf('%s/s%04d',ufol,scenario);
+rmdir(fullfile('external','ksptracking','input',scendir),'s')
+rmdir(fullfile('external','ksptracking','output',scendir),'s')
+
+
+end
