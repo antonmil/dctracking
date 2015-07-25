@@ -166,6 +166,9 @@ end
 printMessage(1,'Job done (%.2f min = %.2fh = %.2f sec per sequence)\n', ...
     toc(trainStartTime)/60,toc(trainStartTime)/3600,toc(trainStartTime)/numel(allscen));
 
+% quick hack to randomize finishing a bit
+pause(randi(20,1,1));
+
 % evaluate what we have so far
 if isempty(intersect(allscen,1001))
 	[bestexper,bestmota]=combineResultsRemote(settingsDir);
@@ -173,8 +176,6 @@ else
 	[bestexper,bestmota]=combineResultsBenchmark(settingsDir,jobid,maxexper);
 end
 
-% quick hack to randomize finishing a bit
-pause(randi(20,1,1));
 
 %querystring=sprintf('qstat -t | grep %s | wc -l',settingsDir);
 %[rs,rjobs] = system(querystring); rjobs=str2double(rjobs)-1; % subtract currently running
