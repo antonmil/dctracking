@@ -19,6 +19,7 @@ external/dptracking/bayes*
 external/dptracking/grid*
 external/ksptracking/input/*
 external/ksptracking/output/*
+external/bpftracking/dets/*
 results/*
 *.mexa64
 *.mexw64*

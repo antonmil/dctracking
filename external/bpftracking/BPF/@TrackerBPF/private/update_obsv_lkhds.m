@@ -61,6 +61,9 @@ while ~isemptycell(targets(i)) && i <= obj.max_num_targets
             [HShists_low Vhists_low] = gethistogram(hsv_obj, rect_hsv(:,:,2), 1);
             HShists = zeros(numPC, 100, obj.hsv_num_box);
             Vhists = zeros(numPC, 10, obj.hsv_num_box);
+			aa=which('gethistogram')
+			% whos HShists
+			% whos HShists_up
             HShists(:,:,1) = HShists_up;
             HShists(:,:,2) = HShists_low;
             Vhists(:,:,1) = Vhists_up;
