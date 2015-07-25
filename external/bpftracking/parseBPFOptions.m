@@ -1,14 +1,10 @@
-function options = parseKSPOptions(options)
-% get options for KSP tracker
-
-% options to be set
-params={'c_en','c_ex','c_ij','betta','max_it','thr_cost'};
-    
+function options = parsePBFOptions(options)
+% get options for BPF tracker
 
 try
     if isstr(options)
 
-        options=readKSPOptions(options);
+        options=readBPFOptions(options);
         % options
     end
     
@@ -18,21 +14,21 @@ catch err
     fprintf('Error parsing options: %s\n',err.message);
     fprintf('Using defaults\n');
     options=[];
-    options.sigA      = 0;     %% detections confidence shift
-    options.sigB      = 1;     %% detections confidence multiplier
-    options.SIG      = 0.0002;      %% Gauss variance
+    options.abclambda      = -1;     %% detections confidence shift
+    options.BPFalpha      = 1;     %% detections confidence multiplier
+    options.pcnums      = 20;      %% Gauss variance
     
 end
 
 end
 
 
-function opt=readKSPOptions(inifile)
+function opt=readBPFOptions(inifile)
     % parse configuration for DP Tracking
 
     if ~exist(inifile,'file')
         fprintf('WARNING! Config file %s does not exist! Using default setting...\n',inifile);
-        inifile='external/ksptracking/config/default.ini';
+        inifile='external/bpftracking/config/default.ini';
     end
 
 
