@@ -1,5 +1,5 @@
 function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
-    runDPonScen(scenario, conffile)
+    runBPFonScen(scenario, conffile)
 
 addPaths;
 
