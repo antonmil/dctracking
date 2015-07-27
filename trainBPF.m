@@ -2,7 +2,6 @@ function trainBPF(jobname,jobid,maxexper)
 
 %% determine paths for config, logs, etc...
 addpath(genpath('../motutils/'));
-addpath(genpath('external/bpftracking'))
 format compact
 
 [~,hname]=system('hostname')
@@ -10,6 +9,8 @@ settingsDir=strsplit(jobname,'-');
 runname=char(settingsDir{1})
 learniter=char(settingsDir{2})
 jid=char(settingsDir{3}); % unused
+
+addpath(genpath('external/bpftracking'))
 
 settingsDir=[runname '-' learniter];
 

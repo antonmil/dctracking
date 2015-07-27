@@ -3,7 +3,7 @@ function [metrics2d, metrics3d, stateInfo, sceneInfo] =...
 
 addPaths;
 
-global opt sceneInfo detections gtInfo
+global opt sceneInfo detections gtInfo obj
 % prepare sequence
 opt=readDCOptions('config/default2d.ini');
 
@@ -48,6 +48,7 @@ mydemo(obj, ...
     'BPF_alpha', options.BPFalpha, ...
     'abc_lambda',options.abclambda, ...
     'pc_num', options.pcnums);
+obj
 
 global objhist
 stateInfo = resultToXY(objhist);
