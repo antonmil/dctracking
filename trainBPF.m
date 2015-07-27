@@ -91,6 +91,11 @@ else
 	      %params = setfield(params,key,ini.GetValues(sec,key));
 	      opt = setfield(opt, key, params(k));
 	  end
+	% pc_num must be integer
+	opt.pcnums = round(opt.pcnums);
+
+	% BPFalpha must be <=1
+	opt.BPFalpha = min(1,opt.BPFalpha);
 
 	  % write out new opt file
 	  status = writeBPFOptions(opt,conffile);

@@ -93,10 +93,10 @@ else
 	  end
 
 	  % integer parameters
-	opt.maxNumLeaves = round(opt.maxNumLeaves);
-	opt.maxDepth = round(opt.maxDepth);
-	opt.timeUndetected = round(opt.timeUndetected);
-	opt.bestK = round(opt.bestK);
+	opt.maxNumLeaves = round(opt.maxNumLeaves); opt.maxNumLeaves=max(1,opt.maxNumLeaves);
+	opt.maxDepth = round(opt.maxDepth);opt.maxDepth=max(1,opt.maxDepth);
+	opt.timeUndetected = round(opt.timeUndetected);opt.timeUndetected=max(1,opt.timeUndetected);
+	opt.bestK = round(opt.bestK);opt.bestK=max(1,opt.bestK);
 
 	% non-negative parameters
 opt.probUndetected=max(0,opt.probUndetected);
@@ -134,7 +134,7 @@ opt.gateSize=max(0,opt.gateSize);
 	    load(scensolfile);
 	  catch err
 	    fprintf('Could not load result: %s\n',err.message);
-	    [metrics2d, metrics3d, stateInfo]=runBPFonScen(scenario,conffile);
+	    [metrics2d, metrics3d, stateInfo]=runMHTonScen(scenario,conffile);
 	    save(scensolfile,'stateInfo','metrics2d','metrics3d');
 	  end	  
 
@@ -220,7 +220,7 @@ else
 	eval(cpstr);
 	
 	% 
-	submitstr=sprintf('!ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no moby  \"cd research/projects/dctracking; sh submitBPFTrain.sh %s\"',newSetting)
+	submitstr=sprintf('!ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no moby  \"cd research/projects/dctracking; sh submitMHTTrain.sh %s\"',newSetting)
 	fprintf('submit: %s\n',newSetting)
   	eval(submitstr);	
   else
