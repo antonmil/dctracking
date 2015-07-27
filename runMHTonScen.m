@@ -35,6 +35,7 @@ global opt sceneInfo detections gtInfo
 opt=readDCOptions('config/default2d.ini');
 
 opt.track3d=howToTrack(scenario); opt.cutToTA=0;
+opt.track3d = 0;
 sceneInfo=getSceneInfo(scenario,opt);
 [detections, nPoints]=parseDetections(sceneInfo);
 [detections, nPoints]=cutDetections(detections,nPoints,sceneInfo, opt);
@@ -86,16 +87,30 @@ for r=1:nruns
 
     end
 
+    opt.track3d=0;
     stateInfo=getStateInfo(alltars);
     stateInfo.frameNums=sceneInfo.frameNums;
     stateInfo.opt=options;
     stateInfo.sceneInfo=sceneInfo;
+    
+    opt.track3d=howToTrack(scenario);
+    % if we tracked on image, Xi = X
+    if ~opt.track3d
+        stateInfo.Xi=stateInfo.X; stateInfo.Yi=stateInfo.Y;    
+    % otherwise project back
+    else
+        [stateInfo.Xgp, stateInfo.Ygp]=projectToGroundPlane(stateInfo.Xi, stateInfo.Yi, sceneInfo);
+        stateInfo.X = stateInfo.Xgp;stateInfo.Y = stateInfo.Ygp;
+    end
+
 
     [F, N]=size(stateInfo.X);
     fprintf('solution has %i frames and %i targets\n',F,N);
     [m2d, m3d]=printFinalEvaluation(stateInfo, gtInfo, sceneInfo, opt);
     allm2d(r,:)=m2d; allm3d(r,:)=m3d;    
 end
+
+
 rm=4:11;
 metrics2d=mean(allm2d); metrics2d(rm)=round(metrics2d(rm));
 metrics3d=mean(allm3d); metrics3d(rm)=round(metrics3d(rm));
